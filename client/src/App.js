@@ -1,9 +1,9 @@
-import logo from './logo.svg';
+
 import './App.css';
-import {BrowserRouter as Router,Routes,Route} from "react-router-dom"
+import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
 import AdminFooter from './components/Admin/AdminFooter';
-import HomePage from './pages/HomePage';
-import AdminHomePage from './pages/admin/AdminHomePage';
+import HomePage from './Pages/HomePage';
+import AdminHomePage from './Pages/Admin/AdminHomePage';
 function App() {
   return (
          <>
