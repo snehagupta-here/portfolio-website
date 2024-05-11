@@ -9,7 +9,10 @@ const bcrypt = require('bcrypt');
 const jwt= require('jsonwebtoken');
 const abt=require('./models/About.js');
 const fs = require('fs');
-
+const contact = require('./models/contact');
+const serv=require('./models/Services');
+const testimonials = require('./models/Testimonials');
+const work= require('./models/Work');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -80,12 +83,12 @@ app.post(''/*login form name */, async (req,res) => {
 
 // hero profile uploading
 app.post(''/*the page from where the file is to be uploaded-fronted*/,uploadmiddleware.single(''/*the fieldname in the form */), async (req,res) =>{
-    const {originalname,path} = req.file;
+    const {originalname,path,} = req.file;
     const part = originalname.split('.');
     const ext = part[part.length - 1];
     const newPath = path+'.'+ext;
     fs.renameSync(path, newPath);
-
+        const {fullname,lastname,title,intro}=req.body;
         const postDoc = await Hero.create({
             //require the data in form and assign it here to store in the database
             profilePicUrl:newPath,
@@ -98,23 +101,72 @@ app.post(''/*the page from where the file is to be uploaded-fronted*/,uploadmidd
 });
 
 app.post(''/*form name from where the services data has to be taken*/ , async (req,res) =>{
-
     const {token} = req.cookies;
     jwt.verify(token, tokensalt, {}, async (err,info) =>{
         if(err) throw err;
-        const {bio,skills,achievments} = req.body;
-        const postDoc = await About.create({
+        const {bio,skills,achievments,services} = req.body;
+        const postDoc = await abt.create({
             bio: bio,
             skills:skills,
-            achievment:acheivement,
-            services:[{
-                position:pos,
-                location:location,
-                descriptoin:des,
-            }],
+            achievment:achievments,
+            services:services,
             resume:resume,
         });
         res.json(postDoc);
     });
-
 });
+
+app.post(''/*form name from where the contact data has to be taken*/ , async (req,res) =>{
+    const {token} = req.cookies;
+    jwt.verify(token, tokensalt, {}, async (err,info) =>{
+        if(err) throw err;
+        const {email,phone,address} = req.body;
+        const postDoc = await contact.create({
+            email:email,
+            phone:phone,
+            address:address,
+        });
+        res.json(postDoc);
+    });
+});
+
+app.post(''/*form name from where the services data has to be taken*/ , async (req,res) =>{
+    const {token} = req.cookies;
+    jwt.verify(token, tokensalt, {}, async (err,info) =>{
+        if(err) throw err;
+        const {des,services} = req.body;
+        const postDoc = await serv.create({
+            description:des,
+            services:services,
+        });
+        res.json(postDoc);
+    });
+});
+
+app.post(''/*form name from where the testimonials data has to be taken*/ , async (req,res) =>{
+    const {token} = req.cookies;
+    jwt.verify(token, tokensalt, {}, async (err,info) =>{
+        if(err) throw err;
+        const {author,company,position,testimonial} = req.body;
+        const postDoc = await testimonials.create({
+            author:author,
+            company:company,
+            position:position,
+            testimonial:testimonial,
+        });
+        res.json(postDoc);
+    });
+});
+
+app.post(''/*form name from where the work data has to be taken*/ , async (req,res) =>{
+    const {token} = req.cookies;
+    jwt.verify(token, tokensalt, {}, async (err,info) =>{
+        if(err) throw err;
+        const {projects} = req.body;
+        const postDoc = await work.create({
+            projects:projects
+        });
+        res.json(postDoc);
+    });
+});
+
