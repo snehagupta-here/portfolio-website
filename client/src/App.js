@@ -1,19 +1,11 @@
-import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
+import logo from './logo.svg';
 import './App.css';
-import HomePage from "./pages/HomePage";
 
 function App() {
   return (
-  <>
-  <Router>
-
- <Routes>
-<Route path="/home" element={<HomePage />} />
-
- </Routes>
-  </Router>
-  </>
+    <div className='bg-black'>
+      hello
+    </div>
   );
 }
-
 export default App;
