@@ -5,12 +5,28 @@ import { faCircleXmark, faPlus, faPen } from '@fortawesome/free-solid-svg-icons'
 import picture from "../../images/picture.png";
 import upload from "../../images/upload.png";
 import pen from "../../images/pen.png";
+import { useState} from "react";
 function AdminHero() {
+    const [file,setFile] = useState( null);
+    if (file){
+        const data = new FormData();
+        const filename = Date.now() + file.name;
+        data.append("name",filename);
+        data.append("file",file);
+        updatedUser.profilePic = filename;
+        try{
+                axios.post("/upload",data)
+        }catch(e){
+            console.log(e);
+        }
+    }
     return (
         <>
             <div className='w-[1200px] pl-8 h-[1013px] mt-[50px] shadows rounded-[20px] flex flex-col justify-evenly content-between'>
-                <img src={picture} className='w-[260px] h-[287px] rounded-[20px]' />
-                <button className='flex items-center justify-center w-[260px] h-[54px] bg-[#EAFCFF] butt rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF]'> <img src={upload} className='h-[20px] w-[20px] mr-2' />Update Picture</button>
+                <img src={picture} className='w-[260px] h-[287px] rounded-[20px]' />        <label htmlFor="fileInput">
+                <button className='flex items-center justify-center w-[260px] h-[54px] bg-[#EAFCFF] butt rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF]'> <img src={upload} className='h-[20px] w-[20px] mr-2' />Update Picture</button>     
+                     </label>
+                       <input id="fileInput" type="file" onChange={e=>setFile(e.target.files[0])} style={{display:"none"}}  />
                 <div className='flex w-[60%] justify-between'>
                     <div className='flex flex-col'>
                         <h1 className='text-[15px] font-[600] mb-2'>First Name</h1>
