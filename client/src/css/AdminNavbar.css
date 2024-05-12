@@ -1,0 +1,34 @@
+.checkbtn{
+    float:right;
+    font-size:2rem;
+    display: none;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+}
+#checkbox{
+    display: none;
+}
+@media (max-width:973px){
+    .checkbtn{
+        display: block;
+    }
+    .navList{
+        position:fixed;
+        width:100%;
+        height: 100vh;
+        background:#bab8ff;
+        top:80px;
+        left:-100%;
+        text-align: center;
+        transition: all .5s;
+        z-index: 99;
+    }
+    .navListItem{
+        display: block;
+        margin: 50px 0;
+        line-height: 30px;
+    }
+    #checkbox:checked ~ ul{
+        left:0;
+    }
+}
