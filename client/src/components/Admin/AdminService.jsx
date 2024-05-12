@@ -7,7 +7,11 @@ import "../../css/AdminContact.css"
 function AdminService() {
   return (
     <>
-      <div className='shadows rounded-[20px] mt-[100px] w-[1200px] h-[880px]  flex flex-col justify-evenly items-center' >
+    <div id="services" className='flex flex-col'>
+
+    
+      <h1 className='font-[700] mt-[70px] text-[25px] '>Services</h1>
+      <div className='shadows rounded-[20px] mt-[50px] w-[1200px] h-[880px]  flex flex-col justify-evenly items-center' >
         <div className='flex flex-col '>
         <h1 className='leading-[24px] font-[600] text-[15px] mb-3'>Description</h1>
         <div className='w-[1100px] h-[126px] rounded-[10px] border-[#ACACAC] border-[1px] font-[400] text-[15px] p-4'>Lorem ipsum dolor sit amet consectetur. Tellus ac sapien mauris urna urna ipsum. Neque sed lacus aliquet orci risus id. Tristique amet pulvinar pellentesque imperdiet diam urna auctor pellentesque commodo. Tincidunt et auctor et vitae in adipiscing enim. Lorem ipsum dolor sit amet consectetur. Tellus ac sapien mauris urna urna ipsum. Neque sed lacus aliquet orci risus id. Tristique amet pulvinar pellentesque imperdiet diam urna auctor pellentesque commodo. Tincidunt et auctor et vitae in adipiscing enim.</div>
@@ -40,6 +44,7 @@ function AdminService() {
             </div>
         </div>
       <button className='flex mt-4 items-center justify-center w-[319px] h-[50px] text-[15px] font-[600] bg-[#EAFCFF] butt rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF]'> <FontAwesomeIcon icon={faPlus} className='mr-2' /> Add Services</button>
+      </div>
       </div>
       </div>
     </>

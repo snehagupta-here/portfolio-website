@@ -9,7 +9,9 @@ import pen1 from "../../images/pen1.png"
 function AdminTestimonial() {
   return (
     <>
-    <div className='h-[582px] w-[1200px] mt-[100px] shadows rounded-[20px] flex flex-col justify-evenly'>
+    <div id="testimonials" className='flex flex-col'>
+       <h1 className='font-[700] mt-[70px] text-[25px] '>Testimonials</h1>
+    <div  className='h-[582px] w-[1200px] mt-[50px] shadows rounded-[20px] flex flex-col justify-evenly'>
          <h1 className='font-[600] text-[15px] ml-[55px]'>Few good words about me, from other...</h1>
          <div className='flex justify-evenly'>
             <div className='h-[358px] w-[525px] rounded-[10px] border-[2px] pl-6 pt-4 pb-5'>
@@ -40,6 +42,7 @@ function AdminTestimonial() {
             </div>
          </div>
          <button className='flex items-center justify-center w-[323px] ml-[55px] h-[54px] bg-[#EAFCFF] rounded-[10px] border-[1px] font-[600] border-[#1395DF] border-dashed text-[#1395DF]'> <FontAwesomeIcon icon={faPlus} className='mr-2' /> Add Testimonial</button>
+    </div>
     </div>
     </>
   )

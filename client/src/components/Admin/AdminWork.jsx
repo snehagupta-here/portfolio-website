@@ -7,7 +7,11 @@ import pen1 from "../../images/pen1.png"
 function AdminWork() {
   return (
     <>
-    <div className='shadows rounded-[20px] w-[1200px] h-[720px] mt-[100px]  flex flex-col justify-evenly items-center' >
+    <div id="work" className='flex flex-col'>
+
+   
+       <h1 className='font-[700] mt-[70px] text-[25px] '>Work</h1>
+    <div className='shadows rounded-[20px] w-[1200px] h-[720px] mt-[50px]  flex flex-col justify-evenly items-center' >
   
         <h1 className='leading-[24px] font-[600] text-[15px]  ml-[50px] self-start'>Projects</h1>
  
@@ -55,6 +59,7 @@ function AdminWork() {
             </div>
         </div>
       <button className='flex self-start ml-[50px] mt-4 items-center justify-center w-[319px] h-[50px] text-[15px] font-[600] bg-[#EAFCFF] butt rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF]'> <FontAwesomeIcon icon={faPlus} className='mr-2' /> Add Projects</button>
+      </div>
       </div>
     </>
   )

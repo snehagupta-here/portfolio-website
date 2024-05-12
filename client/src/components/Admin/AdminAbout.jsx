@@ -9,7 +9,9 @@ import pic from "../../images/pic.png";
 function AdminAbout() {
   return (
  <>
-  <div className='w-[1200px] pl-8  pt-8 h-[1750px] shadows mt-[100px]  rounded-[20px] content-evenly flex flex-col '>
+ <div id="about" className='flex flex-col'>
+      <h1 className='font-[700] mt-[70px] text-[25px] '>About</h1>
+  <div  className='w-[1200px] pl-8  pt-8 h-[1750px] shadows mt-[50px]  rounded-[20px] content-evenly flex flex-col '>
   <div className='flex flex-col content-evenly '>
                     <h1 className='leading-[24px] font-[600] text-[15px] mb-3'>Bio</h1>
                     <div className='w-[1100px] h-[126px] rounded-[10px] border-[#ACACAC] border-[1px] font-[400] text-[15px] p-4'>Lorem ipsum dolor sit amet consectetur. Tellus ac sapien mauris urna urna ipsum. Neque sed lacus aliquet orci risus id. Tristique amet pulvinar pellentesque imperdiet diam urna auctor pellentesque commodo. Tincidunt et auctor et vitae in adipiscing enim. Lorem ipsum dolor sit amet consectetur. Tellus ac sapien mauris urna urna ipsum. Neque sed lacus aliquet orci risus id. Tristique amet pulvinar pellentesque imperdiet diam urna auctor pellentesque commodo. Tincidunt et auctor et vitae in adipiscing enim.</div>
@@ -225,6 +227,7 @@ function AdminAbout() {
             </div>
          </div>
         </div>
+  </div>
   </div>
  </>
   )

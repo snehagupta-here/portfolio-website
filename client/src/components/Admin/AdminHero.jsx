@@ -8,21 +8,23 @@ import pen from "../../images/pen.png";
 import { useState} from "react";
 function AdminHero() {
     const [file,setFile] = useState( null);
-    if (file){
-        const data = new FormData();
-        const filename = Date.now() + file.name;
-        data.append("name",filename);
-        data.append("file",file);
-        updatedUser.profilePic = filename;
-        try{
-                axios.post("/upload",data)
-        }catch(e){
-            console.log(e);
-        }
-    }
+    // if (file){
+    //     const data = new FormData();
+    //     const filename = Date.now() + file.name;
+    //     data.append("name",filename);
+    //     data.append("file",file);
+    //     updatedUser.profilePic = filename;
+    //     try{
+    //             axios.post("/upload",data)
+    //     }catch(e){
+    //         console.log(e);
+    //     }
+    // }
     return (
         <>
-            <div className='w-[1200px] pl-8 h-[1013px] mt-[50px] shadows rounded-[20px] flex flex-col justify-evenly content-between'>
+        <div id="hero" className='flex flex-col'>
+        <h1 className='font-[700] mt-[70px] text-[25px] '>Hero Section</h1>
+            <div  className='w-[1200px] pl-8 h-[1013px] mt-[50px] shadows rounded-[20px] flex flex-col justify-evenly content-between'>
                 <img src={picture} className='w-[260px] h-[287px] rounded-[20px]' />        <label htmlFor="fileInput">
                 <button className='flex items-center justify-center w-[260px] h-[54px] bg-[#EAFCFF] butt rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF]'> <img src={upload} className='h-[20px] w-[20px] mr-2' />Update Picture</button>     
                      </label>
@@ -92,6 +94,7 @@ function AdminHero() {
                     <h1 className='leading-[24px] font-[600] text-[15px] mb-3'>Introduction</h1>
                     <div className='w-[1100px] h-[126px] rounded-[10px] border-[#ACACAC] border-[1px] font-[400] text-[15px] p-4'>Lorem ipsum dolor sit amet consectetur. Tellus ac sapien mauris urna urna ipsum. Neque sed lacus aliquet orci risus id. Tristique amet pulvinar pellentesque imperdiet diam urna auctor pellentesque commodo. Tincidunt et auctor et vitae in adipiscing enim. Lorem ipsum dolor sit amet consectetur. Tellus ac sapien mauris urna urna ipsum. Neque sed lacus aliquet orci risus id. Tristique amet pulvinar pellentesque imperdiet diam urna auctor pellentesque commodo. Tincidunt et auctor et vitae in adipiscing enim.</div>
                 </div>
+            </div>
             </div>
         </>
     )
