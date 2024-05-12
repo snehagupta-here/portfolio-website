@@ -7,12 +7,13 @@ const uploadmiddleware = multer({dest:'uploads/'});
 const Hero = require('./models/Hero.js');
 const bcrypt = require('bcrypt');
 const jwt= require('jsonwebtoken');
-const abt=require('./models/About.js');
+const About = require('./models/About.js');
 const fs = require('fs');
 const contact = require('./models/contact');
 const serv=require('./models/Services');
 const testimonials = require('./models/Testimonials');
 const work= require('./models/Work');
+const User = require('./models/User')
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -35,7 +36,7 @@ connection.once('open', () => {
 // Define routes
 const heroRouter = require('./routes/hero');
 const contactRouter = require('./routes/contact');
-const About = require('./models/About.js');
+
 
 app.use('/api/hero', heroRouter);
 app.use('/api/contact', contactRouter);
@@ -51,6 +52,7 @@ app.post(''/*register form name */, async(req,res)=>{
     try{
         const userDoc= await User.create({
         username,
+        email,
         password,
         });
         res.json(userDoc);
