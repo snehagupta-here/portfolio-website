@@ -5,6 +5,7 @@ import { faCircleXmark, faPlus, faPen } from '@fortawesome/free-solid-svg-icons'
 import picture from "../../images/picture.png";
 import upload from "../../images/upload.png";
 import pen from "../../images/pen.png";
+import pen1 from "../../images/pen1.png";
 import { useState} from "react";
 function AdminHero() {
     const [file,setFile] = useState( null);
@@ -31,11 +32,18 @@ function AdminHero() {
                        <input id="fileInput" type="file" onChange={e=>setFile(e.target.files[0])} style={{display:"none"}}  />
                 <div className='flex w-[60%] justify-between'>
                     <div className='flex flex-col'>
+                        <div className='flex justify-between'>
                         <h1 className='text-[15px] font-[600] mb-2'>First Name</h1>
+                           <img src={pen1} className='w-[20px] h-[20px]' />
+                        </div>
                         <div className='w-[333px] h-[50px] border-[1px] border-[#ACACAC] rounded-[10px] p-3'>Shubham</div>
                     </div>
                     <div className='flex flex-col'>
+                        <div className='flex justify-between'>
+
                         <h1 className='text-[15px] font-[600] mb-2'>Last Name</h1>
+                        <img src={pen1} className='w-[20px] h-[20px]' />
+                        </div>
                         <div className='w-[333px] h-[50px] border-[1px] border-[#ACACAC] rounded-[10px] p-3'>Singhal</div>
                     </div>
                 </div>

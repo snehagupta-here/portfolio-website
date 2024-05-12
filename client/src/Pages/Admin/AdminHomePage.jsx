@@ -14,13 +14,8 @@ import AdminContact from '../../components/Admin/AdminContact'
 import AdminCreate from '../../components/Admin/AdminCreate'
 import AdminWork from '../../components/Admin/AdminWork'
 import AdminService from '../../components/Admin/AdminService'
-
-
-
-    
-    
-
 function AdminHomePage() {
+  
   return (
     <div>
         <AdminNavbar />
