@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import pen from "../../../images/pen.png";
-export default function ContactForm() {
+export default function ContactForm(props) {
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
 
@@ -19,13 +19,13 @@ export default function ContactForm() {
       >
         Contact Us
       </button> */}
-      <img src={pen} className="w-[22px] h-[22px]" onClick={()=>{setShowModal(true)}} />
+      <img src={pen} className="w-[22px] h-[22px] mr-2" onClick={()=>{setShowModal(true)}} />
       {showModal && (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <div className="relative w-auto my-6 mx-auto max-w-3xl">
             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
               <div className="flex items-center justify-between p-5">
-                <h3 className="text-3xl font-bold text-center flex-1">
+                <h3 className="text-3xl font-bold text-center flex-1 text-black">
                   Contact Us
                 </h3>
                 <button
@@ -36,12 +36,12 @@ export default function ContactForm() {
                 </button>
               </div>
               <div className="relative p-6 flex-auto">
-                <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed">
-                  Email
+                <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed text-black">
+                {props.type}
                 </h4>
                 <input
                   type="email"
-                  value={email}
+                  value={props.id}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
                   className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mb-4"
