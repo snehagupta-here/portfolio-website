@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
-
+import pen1 from "../../../images/pen1.png";
 export default function ServiceDetailsForm() {
   const [showModal, setShowModal] = useState(false);
   const [serviceName, setServiceName] = useState("");
@@ -16,17 +16,34 @@ export default function ServiceDetailsForm() {
       description,
     });
     setShowModal(false); // Close the modal after updating
+    async function Cnpost(ev){
+      const data = new FormData();
+      data.set('serviceName',serviceName);
+      data.set('photo',photo);
+      data.set('description',description);
+      data.set("organizationName",organizationName);
+      ev.preventDefault();
+      const response = await fetch('http://localhost:4000/post', {
+          method:'POST',
+          body: data,
+          credentials: "include"
+      });
+      // if(response.ok){
+      //     setRedirect(true);
+      // }
+    }
   };
 
   return (
     <>
-      <button
+      {/* <button
         className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >
         Testimonials
-      </button>
+      </button> */}
+      <img className="w-[22px] h-[22px]" src={pen1} onClick={()=>setShowModal(true)} />
       {showModal && (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <div className="relative w-auto my-6 mx-auto max-w-3xl">

@@ -14,20 +14,25 @@ import AdminContact from '../../components/Admin/AdminContact'
 import AdminCreate from '../../components/Admin/AdminCreate'
 import AdminWork from '../../components/Admin/AdminWork'
 import AdminService from '../../components/Admin/AdminService'
+import { useState } from 'react'
 function AdminHomePage() {
-  
+  const [modal, setmodal] = useState(false);
+  const toggleModal = () => {
+    setmodal(!modal);
+    console.log(modal);
+  };
   return (
     <div>
-        <AdminNavbar />
+        <AdminNavbar modal={modal} setmodal={setmodal} togglemodal ={toggleModal}  />
         <Create_heading/> 
         <div className='flex flex-col items-center justify-evenly'>
-        <AdminHero />
-        <AdminAbout />
-        <AdminWork />
-        <AdminService />
-        <AdminTestimonial />
-        <AdminContact />
-        <AdminCreate />
+        <AdminHero modal={modal} setmodal={setmodal} togglemodal ={toggleModal}  />
+        <AdminAbout modal={modal} setmodal={setmodal} togglemodal ={toggleModal}  />
+        <AdminWork modal={modal} setmodal={setmodal} togglemodal ={toggleModal} />
+        <AdminService modal={modal} setmodal={setmodal} togglemodal ={toggleModal}  />
+        <AdminTestimonial modal={modal} setmodal={setmodal} togglemodal ={toggleModal}  />
+        <AdminContact modal={modal} setmodal={setmodal} togglemodal ={toggleModal}  />
+        <AdminCreate modal={modal} setmodal={setmodal} togglemodal ={toggleModal}  />
         </div>
     </div>
   )

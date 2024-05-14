@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
-
+import pen from "../../../images/pen.png";
 export default function Herosection_skillname() {
   const [showModal, setShowModal] = useState(false);
   const [skillName, setSkillName] = useState(""); // State to hold the skill name
@@ -9,17 +9,31 @@ export default function Herosection_skillname() {
     // Implement your update logic here (e.g., send the updated skill name to an API)
     console.log("Updated Skill Name:", skillName);
     setShowModal(false); // Close the modal after updating
+    async function Cnpost(ev){
+      const data = new FormData();
+      data.set('skillName',skillName);
+      ev.preventDefault();
+      const response = await fetch('http://localhost:4000/post', {
+          method:'POST',
+          body: data,
+          credentials: "include"
+      });
+      // if(response.ok){
+      //     setRedirect(true);
+      // }
+    }
   };
 
   return (
     <>
-      <button
+      {/* <button
         className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >
         Update Skill Name
-      </button>
+      </button> */}
+      <img onClick={()=>setShowModal(true)} src={pen} className="h-[22px] w-[22px] mr-2" />
       {showModal && (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <div className="relative w-auto my-6 mx-auto max-w-3xl">

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleXmark, faPlus, faPen } from '@fortawesome/free-solid-svg-icons';
 export default function ServiceDetailsForm() {
   const [showModal, setShowModal] = useState(false);
   const [serviceName, setServiceName] = useState("");
@@ -14,17 +15,33 @@ export default function ServiceDetailsForm() {
       description,
     });
     setShowModal(false); // Close the modal after updating
+    async function Cnpost(ev){
+      const data = new FormData();
+      data.set('serviceName',serviceName);
+      data.set('photo',photo);
+      data.set('description',description);
+      ev.preventDefault();
+      const response = await fetch('http://localhost:4000/post', {
+          method:'POST',
+          body: data,
+          credentials: "include"
+      });
+      // if(response.ok){
+      //     setRedirect(true);
+      // }
+    }
   };
 
   return (
     <>
-      <button
+      {/* <button
         className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >
         Add Service Details
-      </button>
+      </button> */}
+         <button className='flex mt-4 items-center justify-center w-[319px] h-[50px] text-[15px] font-[600] bg-[#EAFCFF] butt rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF]' onClick={()=>setShowModal(true)}> <FontAwesomeIcon icon={faPlus} className='mr-2' /> Add Services</button>
       {showModal && (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <div className="relative w-auto my-6 mx-auto max-w-3xl">

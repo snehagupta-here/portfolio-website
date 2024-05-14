@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
-
+import pen1 from "../../../images/pen1.png";
 const months = [
   "January", "February", "March", "April", "May", "June", 
   "July", "August", "September", "October", "November", "December"
@@ -33,17 +33,39 @@ export default function Herosection_skillname() {
       description
     });
     setShowModal(false); // Close the modal after updating
+    async function Cnpost(ev){
+      const data = new FormData();
+      data.set('profession',profession);
+      data.set('organization',organization);
+      data.set('location',location);
+      data.set('isRemote',isRemote);
+      data.set('startMonth',startMonth);
+      data.set('startYear',startYear);
+      data.set('endMonth',endMonth);
+      data.set('currentlyWorking',currentlyWorking);
+      data.set('description',description);
+      ev.preventDefault();
+      const response = await fetch('http://localhost:4000/post', {
+          method:'POST',
+          body: data,
+          credentials: "include"
+      });
+      // if(response.ok){
+      //     setRedirect(true);
+      // }
+    }
   };
 
   return (
     <>
-      <button
+      {/* <button
         className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >
         Details
-      </button>
+      </button> */}
+      <img src={pen1} onClick={()=>setShowModal(true)} className="w-[22px] h-[22px]" />
       {showModal && (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <div className="relative w-auto my-6 mx-auto max-w-3xl">

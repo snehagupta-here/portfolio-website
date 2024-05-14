@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleXmark, faPlus, faPen } from '@fortawesome/free-solid-svg-icons';
 const headingsOptions = ["Photo", "Title", "Description"];
 const styleOptions = ["One Tile", "Two Tiles"];
 
@@ -18,13 +19,14 @@ export default function CreateNewSection() {
 
   return (
     <>
-      <button
+      {/* <button
         className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >
         Create New Section
-      </button>
+      </button> */}
+       <button onClick={()=>setShowModal(true)} className='bg-white w-[344px] h-[54px] text-[#006BC2] rounded-[10px] font-[600]'>  <FontAwesomeIcon icon={faPlus} />  Create Section</button>
       {showModal && (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <div className="relative w-auto my-6 mx-auto max-w-3xl">
