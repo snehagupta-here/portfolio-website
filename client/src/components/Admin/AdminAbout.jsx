@@ -15,7 +15,7 @@ import About_achievement from "./Popups/About_achievement";
 import axios from "axios";
 import {useState, useEffect} from "react";
 function AdminAbout() {
-    const skills = ["skill1","skill2","skill3" ,"skill4","skill5"];
+    const skills = ["skill1","skill2","skill3" ,"skill4"];
     const [bio,setBio] = useState([]);
     const experiences = [{"position":"ABC Position","location":"some company location","date":"oct 3,2023","desc":"lorem 2"},{"position":"ABC Position","location":"some company location","date":"oct 3,2023","desc":"lorem 2"}]
     // const [experiences,setExperiences] = useState({});
@@ -34,7 +34,6 @@ function AdminAbout() {
   <div  className='w-[1200px] pl-8  pt-8 h-auto pb-16 shadows mt-[50px]  rounded-[20px] content-evenly flex flex-col '>
   <div className='flex flex-col content-evenly '>
     <div className='flex justify-between'>
-        
                     <h1 className='leading-[24px] font-[600] text-[15px] mb-3'>Bio</h1>
                     {/* <img src={pen1}  className='w-[22px] h-[22px] inline mr-16' /> */}
                     <About_bio />
@@ -44,10 +43,10 @@ function AdminAbout() {
                 </div>
                 <div className='flex flex-col mt-8'>
                     <h1 className='font-[600] text-[15px]'>Skills</h1>
-                    <div className='flex flex-wrap justify-between p-8 pl-0'>
+                    <div className='flex flex-wrap  p-8 pl-0'>
                     {skills.map((skill,index)=>{
                         return(
-                                  <div className='h-[54px] w-[298px]  bg-[#006BC2]  mb-4 flex pt-3 pl-3 text-white rounded-[10px]'>
+                                  <div className='h-[54px] w-[298px] mr-4  bg-[#006BC2]  mb-4 flex pt-3 pl-3 text-white rounded-[10px]'>
                                   <div className='flex w-full'>
                                   <h1 className='text-[15px] min-w-[200px] w-[4/5]'>{skill}</h1>
                                   <div className='flex  justify-end  mr-[2]'>
