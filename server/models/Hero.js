@@ -6,7 +6,11 @@ const heroSchema = new Schema({
     fullName: { type: String, required: true },
     lastName: { type: String, required: true },
     titles: [{ type: String, required: true }],
-    introduction: { type: String, required: true }
+    introduction: { type: String, required: true },
+    User: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }
 });
 
 const Hero = mongoose.model('Hero', heroSchema);

@@ -10,7 +10,11 @@ const aboutSchema = new Schema({
         description: { type: String,required: true}
     }],
     achievement: { type: String, required: true },
-    resume: { type: String } 
+    resume: { type: String },
+    User: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }
 });
 
 const About = mongoose.model('About', aboutSchema);
