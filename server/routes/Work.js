@@ -5,14 +5,6 @@ const multer=require('multer');
 const uploadmiddleware = multer({dest:'uploads/'});
 const fs = require('fs');
 
-router.post('/', async (req,res) =>{
-        
-        const postDoc = await Work.create({
-            
-        });
-        res.json(postDoc);
-  });
-
   router.post('/', uploadmiddleware.single('file'), async (req, res) => {
     try {
         if (!req.file) {
