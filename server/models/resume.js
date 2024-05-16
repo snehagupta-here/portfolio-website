@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 const fileSchema = new mongoose.Schema({
   data: Buffer,
   contentType: String,
-  filename: String
+  filename: String,
+  User: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  }
 });
 
 const Resume = mongoose.model('File', fileSchema);

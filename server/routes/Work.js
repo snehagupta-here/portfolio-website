@@ -1,13 +1,52 @@
 const express=require('express');
 const router=express.Router();
 const Work=require('../models/Work');
+const multer=require('multer');
+const uploadmiddleware = multer({dest:'uploads/'});
+const fs = require('fs');
 
 router.post('/', async (req,res) =>{
-        const {projects}=req.body;
+        
         const postDoc = await Work.create({
-            projects:projects,
+            
         });
         res.json(postDoc);
   });
+
+  router.post('/', uploadmiddleware.single('file'), async (req, res) => {
+    try {
+        if (!req.file) {
+            const {projects}=req.body;
+
+            const postDoc = await Work.create({
+                // projectimg: newPath,
+                projects:projects,
+            });
+
+        res.json(postDoc);
+            return res.status(400).json({ error: 'No file uploaded' });
+        }
+
+        const { originalname, path } = req.file;
+        const part = originalname.split('.');
+        const ext = part[part.length - 1];
+        const newPath = path + '.' + ext;
+
+        await fs.rename(path, newPath);
+
+        const { fullname, lastname, title, intro } = req.body;
+
+        const postDoc = await work.create({
+            projectimg: newPath,
+            projects:projects
+        });
+
+        res.json(postDoc);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 
   module.exports=router;

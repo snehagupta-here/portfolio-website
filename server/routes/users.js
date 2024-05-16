@@ -1,6 +1,6 @@
 const express=require('express');
 const router=express.Router();                                         // the router converts the hhtp into get or post etc.
-const User=require('../models/user');
+const User=require('../models/User');
 const bcrypt = require('bcrypt'); 
 const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
