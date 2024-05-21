@@ -7,6 +7,18 @@ const jwt = require('jsonwebtoken');
 var fetchuser=require('../middleware/fetchuser')
 const JWT_SECRET='fortoken';
 
+// GET route to fetch user details
+router.get('/user', fetchuser, async (req, res) => {
+  try {
+    // Fetch user details using the middleware
+    const user = await User.findById(req.user.id).select('-password');
+    res.json(user);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Internal server error occurred');
+  }
+});
+
 
 router.post('/login',[
   body('password','Password cannot be blank').exists()],

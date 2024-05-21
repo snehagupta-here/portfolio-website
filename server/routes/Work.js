@@ -1,29 +1,33 @@
-const express=require('express');
-const router=express.Router();
-const Work=require('../models/Work');
-const multer=require('multer');
-const uploadmiddleware = multer({dest:'uploads/'});
-const fs = require('fs');
+const express = require('express');
+const router = express.Router();
+const Work = require('../models/Work');
+const multer = require('multer');
+const fs = require('fs').promises; // Use fs.promises for asynchronous file operations
 
-router.post('/', async (req,res) =>{
-        
-        const postDoc = await Work.create({
-            
-        });
-        res.json(postDoc);
-  });
+// Multer middleware for file upload
+const uploadmiddleware = multer({ dest: 'uploads/' });
 
-  router.post('/', uploadmiddleware.single('file'), async (req, res) => {
+// GET route to fetch all work data
+router.get('/', async (req, res) => {
     try {
-        if (!req.file) {
-            const {projects}=req.body;
+        const work = await Work.find();
+        res.json(work);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
+// POST route to upload project image and other data
+router.post('/', uploadmiddleware.single('file'), async (req, res) => {
+    try {
+        const { projects } = req.body;
+
+        if (!req.file) {
             const postDoc = await Work.create({
-                // projectimg: newPath,
-                projects:projects,
+                projects: projects,
             });
 
-        res.json(postDoc);
             return res.status(400).json({ error: 'No file uploaded' });
         }
 
@@ -32,13 +36,12 @@ router.post('/', async (req,res) =>{
         const ext = part[part.length - 1];
         const newPath = path + '.' + ext;
 
+        // Rename the file with the correct extension
         await fs.rename(path, newPath);
 
-        const { fullname, lastname, title, intro } = req.body;
-
-        const postDoc = await work.create({
+        const postDoc = await Work.create({
             projectimg: newPath,
-            projects:projects
+            projects: projects
         });
 
         res.json(postDoc);
@@ -48,5 +51,4 @@ router.post('/', async (req,res) =>{
     }
 });
 
-
-  module.exports=router;
+module.exports = router;

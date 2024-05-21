@@ -1,31 +1,23 @@
-const express=require('express');
-const router=express.Router();
-const Services=require('../models/Services');
-const multer=require('multer');
-const uploadmiddleware = multer({dest:'uploads/'});
-const fs = require('fs');
+const express = require('express');
+const router = express.Router();
+const Services = require('../models/Services');
+const multer = require('multer');
+const fs = require('fs').promises;  // Use fs.promises for asynchronous file operations
 
-router.post('/', async (req,res) =>{
-        const {description,services}=req.body;
-        const postDoc = await Services.create({
-            description,
-            services,
-        });
-        res.json(postDoc);
-  });
+// Multer middleware for file upload
+const uploadmiddleware = multer({ dest: 'uploads/' });
 
-  router.post('/', uploadmiddleware.single('file'), async (req, res) => {
+// POST route to upload service image and other data
+router.post('/', uploadmiddleware.single('file'), async (req, res) => {
     try {
-        if (!req.file) {
-            const {description,services}=req.body;
+        const { description, services } = req.body;
 
+        if (!req.file) {
             const postDoc = await Services.create({
-                // servicesimg: newPath,
                 description: description,
                 services: services,
             });
 
-        res.json(postDoc);
             return res.status(400).json({ error: 'No file uploaded' });
         }
 
@@ -34,14 +26,13 @@ router.post('/', async (req,res) =>{
         const ext = part[part.length - 1];
         const newPath = path + '.' + ext;
 
+        // Rename the file with the correct extension
         await fs.rename(path, newPath);
 
-        const { fullname, lastname, title, intro } = req.body;
-
         const postDoc = await Services.create({
-                servicesimg: newPath,
-                description: description,
-                services: services,
+            servicesimg: newPath,
+            description: description,
+            services: services,
         });
 
         res.json(postDoc);
@@ -51,5 +42,15 @@ router.post('/', async (req,res) =>{
     }
 });
 
+// GET route to retrieve all service data
+router.get('/', async (req, res) => {
+    try {
+        const services = await Services.find();
+        res.json(services);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
-  module.exports=router;
+module.exports = router;
