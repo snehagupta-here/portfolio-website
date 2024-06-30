@@ -5,6 +5,20 @@ export default function Herosection_skillname() {
   const [showModal, setShowModal] = useState(false);
   const [skillName, setSkillName] = useState(""); // State to hold the skill name
 
+
+  async function Cnpost(ev){
+    const data = new FormData();
+    data.set('skillName',skillName);
+    ev.preventDefault();
+    const response = await fetch('http://localhost:5000/api/about', {
+        method:'POST',
+        body: data,
+        credentials: "include"
+    });
+    if(response.ok){
+        console.log("data sent");
+    }
+  }
   const handleUpdate = () => {
     // Implement your update logic here (e.g., send the updated skill name to an API)
     console.log("Updated Skill Name:", skillName);
