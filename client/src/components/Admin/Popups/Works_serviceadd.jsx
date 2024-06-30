@@ -21,14 +21,14 @@ export default function ServiceDetailsForm() {
       data.set('photo',photo);
       data.set('description',description);
       ev.preventDefault();
-      const response = await fetch('http://localhost:5000/post', {
+      const response = await fetch('http://localhost:5000/api/Services/works', {
           method:'POST',
           body: data,
           credentials: "include"
       });
-      // if(response.ok){
-      //     setRedirect(true);
-      // }
+      if(response.ok){
+          console.log("service added");
+      }
     }
   };
 

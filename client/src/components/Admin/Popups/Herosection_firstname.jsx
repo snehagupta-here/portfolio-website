@@ -11,20 +11,21 @@ export default function Herosection_firstname({onClose}) {
     // Implement your update logic here (e.g., send the updated name to an API)
     console.log("Updated First Name:", firstName);
     setShowModal(false); // Close the modal after updating
-    async function Cnpost(ev){
-      const data = new FormData();
-      data.set('firstName',firstName);
-      ev.preventDefault();
-      const response = await fetch('http://localhost:5000/post', {
-          method:'POST',
-          body: data,
-          credentials: "include"
-      });
-      // if(response.ok){
-      //     setRedirect(true);
-      // }
-    }
+    Cnpost();
   };
+  async function Cnpost(ev){
+    const data = new FormData();
+    data.set('firstName',firstName);
+    ev.preventDefault();
+    const response = await fetch('http://localhost:5000/post', {//function to be defined
+        method:'PUT',
+        body: data,
+        credentials: "include"
+    });
+    // if(response.ok){
+    //     setRedirect(true);
+    // }
+  }
   return (
     <>
       {/* <button

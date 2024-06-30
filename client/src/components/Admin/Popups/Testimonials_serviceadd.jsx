@@ -15,22 +15,24 @@ export default function ServiceDetailsForm() {
       description,
     });
     setShowModal(false); // Close the modal after updating
-    async function Cnpost(ev){
-      const data = new FormData();
-      data.set('serviceName',serviceName);
-      data.set('photo',photo);
-      data.set('description',description);
-      ev.preventDefault();
-      const response = await fetch('http://localhost:5000/post', {
-          method:'POST',
-          body: data,
-          credentials: "include"
-      });
-      // if(response.ok){
-      //     setRedirect(true);
-      // }
-    }
+    testimonialserviceadd()
   };
+  async function testimonialserviceadd(ev){
+    const data = new FormData();
+    data.set('serviceName',serviceName);
+    data.set('organizationName',organizationName);
+    data.set('photo',photo);
+    data.set('description',description);
+    ev.preventDefault();
+    const response = await fetch('http://localhost:5000/api/testimonials/', {
+        method:'POST',
+        body: data,
+        credentials: "include"
+    });
+    if(response.ok){
+        console.log("testimonial service added");
+    }
+  }
 
   return (
     <>

@@ -7,19 +7,19 @@ export default function AchievementForm() {
   const handleUpdate = () => {
     console.log("Achievement:", achievement);
     setShowModal(false); // Close the modal after updating
-    async function Cnpost(ev){
-      const data = new FormData();
-      data.set('achievement',achievement);
-      ev.preventDefault();
-      const response = await fetch('http://localhost:5000/post', {
-          method:'POST',
-          body: data,
-          credentials: "include"
-      });
-      // if(response.ok){
-      //     setRedirect(true);
-      // }
-    }
+    // async function Cnpost(ev){
+    //   const data = new FormData();
+    //   data.set('achievement',achievement);
+    //   ev.preventDefault();
+    //   const response = await fetch('http://localhost:5000/post', {
+    //       method:'POST',
+    //       body: data,
+    //       credentials: "include"
+    //   });
+    //   // if(response.ok){
+    //   //     setRedirect(true);
+    //   // }
+    // }
   };
   return (
     <>

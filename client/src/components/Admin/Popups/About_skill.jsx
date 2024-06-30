@@ -9,20 +9,21 @@ export default function Herosection_skillname() {
     // Implement your update logic here (e.g., send the updated skill name to an API)
     console.log("Updated Skill Name:", skillName);
     setShowModal(false); // Close the modal after updating
-    async function Cnpost(ev){
-      const data = new FormData();
-      data.set('skillName',skillName);
-      ev.preventDefault();
-      const response = await fetch('http://localhost:5000/post', {
-          method:'POST',
-          body: data,
-          credentials: "include"
-      });
-      // if(response.ok){
-      //     setRedirect(true);
-      // }
-    }
+    skillupdate();
   };
+  async function skillupdate(ev){
+    const data = new FormData();
+    data.set('skillName',skillName);
+    ev.preventDefault();
+    const response = await fetch('http://localhost:5000/api/About/skills/edit', {
+        method:'POST',
+        body: data,
+        credentials: "include"
+    });
+    if(response.ok){
+        console.log("updated");
+    }
+  }
 
   return (
     <>

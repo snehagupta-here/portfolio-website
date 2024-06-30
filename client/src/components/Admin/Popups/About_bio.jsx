@@ -9,21 +9,21 @@ export default function Herosection_title() {
     // Implement your update logic here (e.g., send the updated bio to an API)
     console.log("Updated Bio:", bio);
     setShowModal(false); // Close the modal after updating
-    async function Cnpost(ev){
-      const data = new FormData();
-      data.set('bio',bio);
-      ev.preventDefault();
-      const response = await fetch('http://localhost:5000/post', {
-          method:'POST',
-          body: data,
-          credentials: "include"
-      });
-      // if(response.ok){
-      //     setRedirect(true);
-      // }
-    }
+    aboutbioadd()
   };
-
+  async function aboutbioadd(ev){
+    const data = new FormData();
+    data.set('bio',bio);
+    ev.preventDefault();
+    const response = await fetch('http://localhost:5000/api/About/bio/', {
+        method:'POST',
+        body: data,
+        credentials: "include"
+    });
+    if(response.ok){
+        console.log("bio added");
+    }
+  }
   return (
     <>
       {/* <button

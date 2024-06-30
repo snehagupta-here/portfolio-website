@@ -14,25 +14,26 @@ export default function ProjectDetailsForm() {
     if (newSkill.trim() !== "") {
       setSkills([...skills, newSkill]);
       setNewSkill("");
-      async function Cnpost(ev){
-        const data = new FormData();
-        data.set('projectName',projectName);
-        data.set('skills',skills);
-        data.set('newSkill',newSkill);
-        data.set('photo',photo);
-        data.set('description',description);
-        ev.preventDefault();
-        const response = await fetch('http://localhost:5000/post', {
-            method:'POST',
-            body: data,
-            credentials: "include"
-        });
-        // if(response.ok){
-        //     setRedirect(true);
-        // }
-      }
+      addservicework()
     }
   };
+  async function addservicework(ev){
+    const data = new FormData();
+    data.set('serviceName',projectName);
+    data.set('skills',skills);
+    data.set('newSkill',newSkill);
+    data.set('photo',photo);
+    data.set('description',description);
+    ev.preventDefault();
+    const response = await fetch('http://localhost:5000/api/Services/works', {
+        method:'POST',
+        body: data,
+        credentials: "include"
+    });
+    if(response.ok){
+        console.log("project added");
+    }
+  }
 
   const handleRemoveSkill = (index) => {
     const updatedSkills = [...skills];

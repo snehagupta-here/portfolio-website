@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import pen from "../../../images/pen.png";
+import axios from "axios";
 export default function ContactForm(props) {
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
@@ -8,7 +9,22 @@ export default function ContactForm(props) {
   const handleUpdate = () => {
     console.log("Email:", email);
     setShowModal(false); // Close the modal after updating
+    createorupdateemail();
   };
+  async function createorupdateemail(ev){
+    const data=new FormData();
+    data.set("email",email);
+    ev.preventDefault();
+    const response = await fetch('http://localhost:5000/api/contact/', {
+      method:'POST',
+      body: data,
+      credentials: "include"
+    });
+    if(response.ok){
+        console.log("email added");
+    }
+  }
+  
 
   return (
     <>

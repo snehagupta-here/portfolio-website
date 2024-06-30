@@ -8,21 +8,21 @@ export default function ServiceDescriptionForm() {
   const handleUpdate = () => {
     console.log("Updated Description:", description);
     setShowModal(false); // Close the modal after updating
-    async function Cnpost(ev){
-      const data = new FormData();
-     
-      data.set('description',description);
-      ev.preventDefault();
-      const response = await fetch('http://localhost:5000/post', {
-          method:'POST',
-          body: data,
-          credentials: "include"
-      });
-      // if(response.ok){
-      //     setRedirect(true);
-      // }
-    }
+    updatedescription()
   };
+  async function updatedescription(ev){
+    const data = new FormData();
+    data.set('description',description);
+    ev.preventDefault();
+    const response = await fetch('http://localhost:5000/api/Services/service-description', {
+        method:'PUT',
+        body: data,
+        credentials: "include"
+    });
+    if(response.ok){
+        console.log("description updated");
+    }
+  }
 
   return (
     <>
