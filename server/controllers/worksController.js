@@ -28,7 +28,30 @@ const getWorksByUsername = async (req, res) => {
   }
 };
 
+// Update a work
+const updateWork = async (req, res) => {
+  const { id, serviceName, photo, description } = req.body;
+
+  try {
+    const updatedWork = await Works.findByIdAndUpdate(
+      id,
+      { serviceName, photo, description },
+      { new: true }
+    );
+
+    if (!updatedWork) {
+      return res.status(404).json({ message: 'Work not found' });
+    }
+
+    res.json(updatedWork);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   createWork,
-  getWorksByUsername
+  getWorksByUsername,
+  updateWork
 };
+
