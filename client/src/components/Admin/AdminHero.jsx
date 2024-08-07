@@ -17,6 +17,8 @@ import Herosection_introduction from './Popups/Herosection_introduction';
 function AdminHero(props) {
     const [file,setFile] = useState( null);
     const [selectedFile,setSelectedFile] = useState(null);
+    const [firstname,setFirstname]=useState("");
+    const [lastname,setLasttname]=useState("");
     // const handleFileChange = (event) => {
     //     const fileList = event.target.files;
     //     console.log(fileList);
@@ -31,6 +33,21 @@ function AdminHero(props) {
     //       reader.readAsDataURL(file);
     //     }
     //   };
+    const deletetitle=(id)=>{
+      // ev.preventDefault();
+        ev.preventDefault();
+        const data =new FormData();
+        data.set('titleId',id);
+        data.set('username',username);
+        const response = fetch('http://localhost:5000/api/Hero/titles/remove', {//function to be defined
+            method:'DELETE',
+            body: data,
+            credentials: "include"
+        });
+        if(response.ok){
+            console.log("title deleted");
+        }
+    };
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -82,7 +99,7 @@ function AdminHero(props) {
                            {/* {isPopupOpen && <Herosection_firstname onClose={togglePopup} />} */}
                           {props.modal && <Herosection_firstname modal={props.modal} toggle={props.togglemodal} setModal={props.setmodal} />} 
                         </div>
-                        <div className='w-[333px] h-[50px] border-[1px] border-[#ACACAC] rounded-[10px] p-3'>Shubham</div>
+                        <div className='w-[333px] h-[50px] border-[1px] border-[#ACACAC] rounded-[10px] p-3'>{{firstname}}</div>
                     </div>
                     <div className='flex flex-col'>
                         <div className='flex justify-between'>
@@ -92,7 +109,7 @@ function AdminHero(props) {
                         {props.modal && <Herosection_lastname modal={props.modal} toggle={props.togglemodal} setModal={props.setmodal} />} */}
                       <Herosection_lastname />
                         </div>
-                        <div className='w-[333px] h-[50px] border-[1px] border-[#ACACAC] rounded-[10px] p-3'>Singhal</div>
+                        <div className='w-[333px] h-[50px] border-[1px] border-[#ACACAC] rounded-[10px] p-3'>{lastname}</div>
                     </div>
                 </div>
                 <div className='flex flex-col mb-6'>
@@ -107,7 +124,11 @@ function AdminHero(props) {
                             {/* <img src={pen} className='w-[22px] h-[22px] inline mr-2' onClick={props.togglemodal} />
                             {props.modal && <Herosection_title modal={props.modal}  toggle={props.togglemodal} setModal={props.setmodal} />} */}
                       <Herosection_title />
+<<<<<<< HEAD
                             <img src={xmark} className='w-[22px] h-[22px] inline mr-2'  />
+=======
+                            <img src={xmark} className='w-[22px] h-[22px] inline mr-2' onClick={()=>{deletetitle(title.id)}}/>
+>>>>>>> c3c32cab2e61cffb854a862575a83004142958f9
                         </div>
                         </div>
                         </div>

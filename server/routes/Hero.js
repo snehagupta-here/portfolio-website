@@ -5,11 +5,13 @@ const multer=require('multer');
 const uploadmiddleware = multer({dest:'uploads/'});
 const fs = require('fs');
 
+
+
 router.post('/', uploadmiddleware.single('file'), async (req, res) => {
+    const { fullname, lastname, title, intro,username } = req.body;
+    const userId=username;
     try {
         if (!req.file) {
-            const { fullname, lastname, title, intro } = req.body;
-
             const postDoc = await Hero.create({
                 // profilePicUrl: newPath,
                 fullName: fullname,
@@ -26,10 +28,7 @@ router.post('/', uploadmiddleware.single('file'), async (req, res) => {
         const part = originalname.split('.');
         const ext = part[part.length - 1];
         const newPath = path + '.' + ext;
-
         await fs.rename(path, newPath);
-
-        const { fullname, lastname, title, intro } = req.body;
 
         const postDoc = await Hero.create({
             profilePicUrl: newPath,

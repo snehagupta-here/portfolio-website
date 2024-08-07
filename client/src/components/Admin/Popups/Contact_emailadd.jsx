@@ -8,8 +8,21 @@ export default function ContactForm() {
   const handleUpdate = () => {
     console.log("Email:", email);
     setShowModal(false); // Close the modal after updating
+    createorupdateemail();
   };
-
+  async function createorupdateemail(ev){
+    const data=new FormData();
+    data.set("email",email);
+    ev.preventDefault();
+    const response = await fetch('http://localhost:5000/api/contact/', {
+      method:'POST',
+      body: data,
+      credentials: "include"
+    });
+    if(response.ok){
+        console.log("email added");
+    }
+  }
   return (
     <>
       {/* <button

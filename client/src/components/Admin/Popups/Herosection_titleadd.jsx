@@ -10,20 +10,18 @@ export default function Herosection_titleadd() {
     // Implement your update logic here (e.g., send the updated name to an API)
     console.log("Add title:", title);
     setShowModal(false); // Close the modal after updating
-    async function Cnpost(ev){
-      const data = new FormData();
-      data.set('title',title);
-      ev.preventDefault();
-      const response = await fetch('http://localhost:5000/post', {
-          method:'POST',
-          body: data,
-          credentials: "include"
-      });
-      // if(response.ok){
-      //     setRedirect(true);
-      // }
-    }
+    addtitle();
   };
+  async function addtitle(ev){
+    const data = new FormData();
+    data.set('title',title);
+    ev.preventDefault();
+    const response = await fetch('http://localhost:5000/api/Hero/titles/create', {
+        method:'POST',
+        body: data,
+        credentials: "include"
+    });
+  }
   return (
     <>
       {/* <button

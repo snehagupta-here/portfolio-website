@@ -20,6 +20,28 @@ export default function Herosection_skillname() {
   const [currentlyWorking, setCurrentlyWorking] = useState(false);
   const [description, setDescription] = useState("");
 
+  async function Cnpost(ev){
+    const data = new FormData();
+    data.set('profession',profession);
+    data.set('organization',organization);
+    data.set('location',location);
+    data.set('isRemote',isRemote);
+    data.set('startMonth',startMonth);
+    data.set('startYear',startYear);
+    data.set('endMonth',endMonth);
+    data.set('currentlyWorking',currentlyWorking);
+    data.set('description',description);
+    ev.preventDefault();
+    const response = await fetch('http://localhost:5000/api/about', {
+        method:'POST',
+        body: data,
+        credentials: "include"
+    });
+    if(response.ok){
+      console.log("data sent");
+   }
+  }
+
   const handleUpdate = () => {
     console.log("Details:", {
       profession,
@@ -34,29 +56,28 @@ export default function Herosection_skillname() {
       description
     });
     setShowModal(false); // Close the modal after updating
-    async function Cnpost(ev){
-      const data = new FormData();
-      data.set('profession',profession);
-      data.set('organization',organization);
-      data.set('location',location);
-      data.set('isRemote',isRemote);
-      data.set('startMonth',startMonth);
-      data.set('startYear',startYear);
-      data.set('endMonth',endMonth);
-      data.set('currentlyWorking',currentlyWorking);
-      data.set('description',description);
-      ev.preventDefault();
-      const response = await fetch('http://localhost:5000/post', {
-          method:'POST',
-          body: data,
-          credentials: "include"
-      });
-      // if(response.ok){
-      //     setRedirect(true);
-      // }
-    }
+    addproffexp()
   };
-
+  async function addproffexp(ev){
+    const data = new FormData();
+    data.set('profession',profession);
+    data.set('organization',organization);
+    data.set('location',location);
+    data.set('isRemote',isRemote);
+    data.set('startDate',startDate);
+    data.set('endDate',endDate);
+    data.set('currentlyWorking',currentlyWorking);
+    data.set('description',description);
+    ev.preventDefault();
+    const response = await fetch('http://localhost:5000/api/About/professional-experience/', {
+        method:'POST',
+        body: data,
+        credentials: "include"
+    });
+    if(response.ok){
+        console.log("added");
+    }
+  }
   return (
     <>
       {/* <button

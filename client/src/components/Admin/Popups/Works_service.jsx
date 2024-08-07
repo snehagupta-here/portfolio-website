@@ -13,23 +13,24 @@ export default function ServiceDetailsForm() {
       photo,
       description,
     });
-    setShowModal(false); // Close the modal after updating
-    async function Cnpost(ev){
-      const data = new FormData();
-      data.set('serviceName',serviceName);
-      data.set('photo',photo);
-      data.set('description',description);
-      ev.preventDefault();
-      const response = await fetch('http://localhost:5000/post', {
-          method:'POST',
-          body: data,
-          credentials: "include"
-      });
-      // if(response.ok){
-      //     setRedirect(true);
-      // }
-    }
+    setShowModal(false); // Close the modal after updating _____to be done
+    updateservicework()
   };
+  async function updateservicework(ev){//to be done 
+    const data = new FormData();
+    data.set('serviceName',serviceName);
+    data.set('photo',photo);
+    data.set('description',description);
+    ev.preventDefault();
+    const response = await fetch('http://localhost:5000/post', {
+        method:'POST',
+        body: data,
+        credentials: "include"
+    });
+    // if(response.ok){
+    //     setRedirect(true);
+    // }
+  }
 
   return (
     <>

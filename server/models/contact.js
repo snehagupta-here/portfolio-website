@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const contactSchema = new Schema({
-    email: { type: String, required: true },
-    phone: { type: String, required: true },
-    address: { type: String, required: true }
+// Define Contact schema
+const contactSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true, ref: 'User' },
+  email: { type: String },
+  instagram: { type: String },
+  linkedIn: { type: String },
+  twitter: { type: String },
+  message: { type: String }
 });
 
 const Contact = mongoose.model('Contact', contactSchema);
