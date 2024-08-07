@@ -67,8 +67,8 @@ export default function Herosection_skillname() {
       </button> */}
       <img src={pen1} onClick={()=>setShowModal(true)} className="w-[22px] h-[22px]" />
       {showModal && (
-        <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-          <div className="relative w-auto my-6 mx-auto max-w-3xl">
+        <div className="justify-center items-center flex overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none">
+          <div className=" w-[1000px]  mx-auto h-[502px] max-w-3xl">
             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
               <div className="flex items-center justify-between p-5">
                 <h3 className="text-3xl font-bold text-center flex-1">

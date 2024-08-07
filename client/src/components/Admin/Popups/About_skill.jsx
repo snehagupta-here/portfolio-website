@@ -36,12 +36,12 @@ export default function Herosection_skillname() {
       <img onClick={()=>setShowModal(true)} src={pen} className="h-[22px] w-[22px] mr-2" />
       {showModal && (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-          <div className="relative w-auto my-6 mx-auto max-w-3xl">
+          <div className="relative w-[1000px] rounded-[20px] my-6 mx-auto max-w-3xl">
             {/* Modal content */}
             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
               {/* Modal header */}
               <div className="flex items-center justify-between p-5">
-                <h3 className="text-3xl font-bold text-center flex-1">
+                <h3 className="text-3xl font-bold text-black text-center flex-1">
                  About
                 </h3>
                 <button
@@ -53,22 +53,22 @@ export default function Herosection_skillname() {
               </div>
               {/* Modal body */}
               <div className="relative p-6 flex-auto">
-                <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed">
-                  Skill Name
+                <h4 className="my-4 text-black text-lg font-bold leading-relaxed">
+                  Skills
                 </h4>
                 {/* Text input for entering the skill name */}
                 <input
                   type="text"
                   value={skillName}
                   onChange={(e) => setSkillName(e.target.value)}
-                  className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-40 py-3 text-sm text-gray-700 "
+                  className="w-full bg-gray-100 border border-[#006BC2] rounded-xl pl-4 py-3 text-sm text-gray-700 "
                   placeholder="Enter skill name"
                 />
               </div>
               {/* Modal footer */}
               <div className="flex items-center justify-end p-6">
                 <button
-                  className="bg-[#006BC2] text-white active:bg-blue-800 text-sm py-3 px-10 rounded-xl shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                  className="bg-[#006BC2] text-white active:bg-blue-800 w-[166px] text-sm py-3 px-10 rounded-xl shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                   type="button"
                   onClick={handleUpdate}
                 >

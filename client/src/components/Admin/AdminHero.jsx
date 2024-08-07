@@ -107,7 +107,7 @@ function AdminHero(props) {
                             {/* <img src={pen} className='w-[22px] h-[22px] inline mr-2' onClick={props.togglemodal} />
                             {props.modal && <Herosection_title modal={props.modal}  toggle={props.togglemodal} setModal={props.setmodal} />} */}
                       <Herosection_title />
-                            <img src={xmark} className='w-[22px] h-[22px] inline mr-2' />
+                            <img src={xmark} className='w-[22px] h-[22px] inline mr-2'  />
                         </div>
                         </div>
                         </div>

@@ -38,7 +38,7 @@ export default function Herosection_title() {
 <img src={pen} onClick={()=>setShowModal(true)} className="w-[22px] h-[22px] mr-2" />
       {showModal && (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-          <div className="relative w-auto my-6 mx-auto max-w-3xl">
+          <div className="relative w-[1000px] rounded-[20px] my-6 mx-auto max-w-3xl">
             {/* Modal content */}
             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
               {/* Modal header */}
@@ -65,7 +65,7 @@ export default function Herosection_title() {
                   type="text"
                  
                   // onChange={(e) => setTitle(e.target.value)}
-                  className="w-full bg-[#EDEDED] text-black border border-[#006BC2] rounded-xl px-40 py-4 "
+                  className="w-full bg-[#EDEDED] text-black border border-[#006BC2] rounded-xl pl-4 py-4 "
                   placeholder="Enter title"
                   style={{ textAlign: "left" }}
                 />
@@ -74,11 +74,11 @@ export default function Herosection_title() {
               <div className="flex items-center justify-end p-6 ">
                 
                 <button
-                  className="bg-[#006BC2] text-white active:bg-blue-800 text-sm py-4 px-10 rounded-xl shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 "
+                  className="bg-[#006BC2] text-white active:bg-blue-800 w-[166px] text-sm py-4 px-10 rounded-xl shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 "
                   type="button"
                   onClick={handleUpdate}
                 >
-                Add
+                Update
                 </button>
               </div>
             </div>
