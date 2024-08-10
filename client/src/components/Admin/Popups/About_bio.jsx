@@ -1,27 +1,37 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import pen1 from "../../../images/pen1.png";
-export default function Herosection_title() {
+export default function Herosection_title(props) {
   const [showModal, setShowModal] = useState(false);
-  const [bio, setBio] = useState(""); // State to hold the bio text
-
+  const [bio, setBio] = useState(props.bio); // State to hold the bio text
+  useEffect(() => {
+    setBio(props.bio);
+  }, [props.bio]);
   const handleUpdate = () => {
     // Implement your update logic here (e.g., send the updated bio to an API)
     console.log("Updated Bio:", bio);
     setShowModal(false); // Close the modal after updating
     aboutbioadd()
   };
-  async function aboutbioadd(ev){
-    const data = new FormData();
-    data.set('bio',bio);
-    ev.preventDefault();
+  async function aboutbioadd(){
+    // const data = new FormData();
+    // data.set('bio',bio);
+    const data = {bio};
+    // ev.preventDefault();
     const response = await fetch('http://localhost:5000/api/About/bio/', {
-        method:'POST',
-        body: data,
-        credentials: "include"
+        method:'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),  
+     
     });
     if(response.ok){
+      const bio = await response.json();
         console.log("bio added");
+        console.log(bio);
+
+        props.setBio(bio.bio);
     }
   }
   return (
@@ -46,7 +56,7 @@ export default function Herosection_title() {
                 </h3>
                 <button
                   className="p-1 ml-auto border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                  onClick={() => setShowModal(false)}
+                  onClick={() => {setShowModal(false); setBio(props.bio)}}    //when it is closed, the bio is resetted to the initial value
                 >
                   <IoClose />
                 </button>
@@ -61,7 +71,7 @@ export default function Herosection_title() {
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
                   className="w-full h-32 bg-gray-100 border border-[#006BC2] rounded-xl pl-4 py-3 text-sm text-gray-700 resize-none"
-                  placeholder="Enter bio"
+                 
                 />
               </div>
               {/* Modal footer */}

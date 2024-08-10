@@ -6,9 +6,9 @@ const introductionController = require('../controllers/introductionController');
 router.post('/', introductionController.createIntroduction);
 
 // Route for getting an introduction by username
-router.get('/:username', introductionController.getIntroductionByUsername);
+router.get('/getintroduction', introductionController.getIntroductionByUsername);
 
 // updating intro 
-router.put('/:username', introductionController.updateIntroduction);
+router.put('/updateintroduction', introductionController.updateIntroduction);
 
 module.exports = router;

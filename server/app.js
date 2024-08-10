@@ -16,15 +16,22 @@ const resumeRoutes = require('./routes/resumeRoutes');
 const projectsRoutes = require('./routes/projectsRoutes');
 const firstnameRoutes = require('./routes/firstnameRoutes');
 const lastnameRoutes = require('./routes/lastnameRoutes');
-
+const cors = require("cors");
 const app = express();
-
+const multer = require("multer");
 // Connect to MongoDB
 connectDB();
+app.use(cors());
+// const corsOptions = {
+//   origin: 'http://localhost:3000',
+//   credentials: true
+// };
 
+// app.use(cors(corsOptions));
 // Middleware to parse JSON bodies
 app.use(express.json());
-
+// Configure multer
+const upload = multer();
 // Routes
 app.use('/api/Hero/users', userRoutes);
 app.use('/api/Hero/titles', titleRoutes);
@@ -35,7 +42,7 @@ app.use('/api/Hero/lastname', lastnameRoutes);
 app.use('/api/About/bio', bioRoutes);
 app.use('/api/About/skills', skillsRoutes);
 app.use('/api/About/professional-experience', professionalExperienceRoutes);
-app.use('/api/About/achievements', achievementRoutes);
+app.use('/api/About/achievement', achievementRoutes);
 app.use('/api/About/resume', resumeRoutes);
 app.use('/api/Services/service-description', serviceDescriptionRoutes);
 app.use('/api/Services/works', worksRoutes);

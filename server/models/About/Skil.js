@@ -6,11 +6,13 @@ const individualSkillSchema = new mongoose.Schema({
 }, { _id: true });
 
 // Define main Skills schema
-const skillsSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
-  skills: [individualSkillSchema]
+const skilSchema = new mongoose.Schema({
+  skill:{
+    type:String,
+    required:true
+  }
 });
 
-const Skills = mongoose.model('Skills', skillsSchema);
 
-module.exports = Skills;
+
+module.exports =  mongoose.model('Skil', skilSchema);

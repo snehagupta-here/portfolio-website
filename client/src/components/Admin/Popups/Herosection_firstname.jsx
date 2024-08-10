@@ -4,27 +4,36 @@ import React from 'react'
 import { useState } from 'react';
 import "../../../css/modal.css";
 import pen1 from "../../../images/pen1.png";
-export default function Herosection_firstname({onClose}) {
+export default function Herosection_firstname(props) {
   const [showModal, setShowModal] = useState(false);
- const [firstName,setFirstName] = useState("");
-  const handleUpdate = () => {
+ const [firstname,setFirstname] = useState(props.firstname);
+  const handleUpdate = async () => {
     // Implement your update logic here (e.g., send the updated name to an API)
-    console.log("Updated First Name:", firstName);
+    console.log("Updated First Name:", firstname);
+    await Cnpost();
     setShowModal(false); // Close the modal after updating
-    Cnpost();
   };
   async function Cnpost(ev){
-    const data = new FormData();
-    data.set('firstName',firstName);
-    ev.preventDefault();
-    const response = await fetch('http://localhost:5000/post', {//function to be defined
-        method:'PUT',
-        body: data,
-        credentials: "include"
+    const data = {firstname};
+    // data.set('firstName',firstname);
+    console.log("sending firstname",firstname);
+    // ev.preventDefault();
+    const response = await fetch('http://localhost:5000/api/Hero/firstname/updatefirstname', {//function to be defined
+        method:'PUT',     
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),   
     });
     // if(response.ok){
     //     setRedirect(true);
     // }
+    if(response.ok){
+      console.log("response is received");
+       let result = await response.json();
+      console.log(result);
+       props.setFirstname(result);
+    }
   }
   return (
     <>
@@ -63,8 +72,8 @@ export default function Herosection_firstname({onClose}) {
                 
                 <input
                   type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  value={firstname}
+                  onChange={(e) => setFirstname(e.target.value)}
                   className="w-full bg-[#EDEDED]  border border-[#006BC2] rounded-xl pl-4 py-4 "
                   placeholder="Enter first name"
                   style={{ textAlign: "left" }}

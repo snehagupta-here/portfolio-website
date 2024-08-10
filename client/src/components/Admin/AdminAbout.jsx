@@ -15,9 +15,11 @@ import About_achievement from "./Popups/About_achievement";
 import axios from "axios";
 import {useState, useEffect} from "react";
 function AdminAbout() {
-    const skills = ["skill1","skill2","skill3" ,"skill4"];
-    const [bio,setBio] = useState([]);
-    const experiences = [{"position":"ABC Position","location":"some company location","date":"oct 3,2023","desc":"lorem 2"},{"position":"ABC Position","location":"some company location","date":"oct 3,2023","desc":"lorem 2"}]
+    // const skills = ["skill1","skill2","skill3" ,"skill4"];
+    const [skill,setSkill] = useState([]);
+    const [bio,setBio] = useState("");
+    const [achievement,setAchievement] = useState("");
+    const [experience,setExperience] = useState([]);
     // const [experiences,setExperiences] = useState({});
     // useEffect(()=>{
     //        const getBio = async ()=>{
@@ -27,6 +29,102 @@ function AdminAbout() {
     //        }
     //        getBio();
     // },[])
+    useEffect(()=>{
+            //    getBio();
+            //    getAllSkill();
+            //    getAchievement();
+
+    },[])
+    const getBio = async () =>{
+        try {
+            // console.log("hi welcome");
+            const response = await fetch('http://localhost:5000/api/About/bio/bio', {
+              method: 'GET'          
+            });
+      
+            if (!response.ok) {
+              throw new Error(`Failed to fetch titles : ${response.statusText}`);
+            }
+                  //  console.log("hi welcome to the group");
+            const bio = await response.json();
+            console.log('Fetched bio:', bio);
+          
+            // Update state with fetched titles
+            //  setTitle(json);
+            // user.map((us) =>{
+  
+            //   setFirstname(us.firstname);
+            //   setLastname(us.lastname);
+            // })
+            // console.log(intro);
+            setBio(bio.bio);
+          } catch (error) {
+            console.error('Error fetching titles:', error.message);
+          }
+    }
+    const getAchievement = async () =>{
+        try {
+             console.log("hi welcome");
+            const response = await fetch('http://localhost:5000/api/About/achievement/achievement', {
+              method: 'GET'          
+            });
+      
+            if (!response.ok) {
+              throw new Error(`Failed to fetch achievement : ${response.statusText}`);
+            }
+                  //  console.log("hi welcome to the group");
+            const achievement = await response.json();
+            console.log('Fetched Achivements:', achievement);
+          
+            // Update state with fetched titles
+            //  setTitle(json);
+            // user.map((us) =>{
+  
+            //   setFirstname(us.firstname);
+            //   setLastname(us.lastname);
+            // })
+            // console.log(intro);
+            setAchievement(achievement.achievement);
+          } catch (error) {
+            console.error('Error fetching titles:', error.message);
+          }
+    }
+    const handleDelete=async (id)=>{
+        // ev.preventDefault();
+    
+          // const data =new FormData();
+          // data.set('titleId',id);
+          // data.set('username',username);
+          const response = await fetch(`http://localhost:5000/api/About/skills/remove/${id}`, {//function to be defined
+              method:'DELETE'       
+          });
+          console.log(response);
+          if(response.ok){
+              console.log("skill deleted");
+              const newSkills = skill.filter((skill) => {return skill._id !== id});
+              console.log(newSkills);
+              setSkill(newSkills);
+          }
+      };
+    const getAllSkill = async () => {
+        try {
+          const response = await fetch('http://localhost:5000/api/About/skills', {
+            method: 'GET',               
+          });
+    
+          if (!response.ok) {
+            throw new Error(`Failed to fetch titles : ${response.statusText}`);
+          }
+    
+          const json = await response.json();
+          console.log('Fetched Skills:', json);
+        
+          // Update state with fetched titles
+           setSkill(json);
+        } catch (error) {
+          console.error('Error fetching skills:', error.message);
+        }
+      };
   return (
  <>
  <div id="about" className='flex flex-col'>
@@ -36,35 +134,35 @@ function AdminAbout() {
     <div className='flex justify-between'>
                     <h1 className='leading-[24px] font-[600] text-[15px] mb-3'>Bio</h1>
                     {/* <img src={pen1}  className='w-[22px] h-[22px] inline mr-16' /> */}
-                    <About_bio />
+                    <About_bio bio={bio} setBio={setBio}/>
     </div>
-                    <div className='w-[1100px] h-[126px] rounded-[10px] border-[#ACACAC] border-[1px] font-[400] text-[15px] p-4'>Lorem ipsum dolor sit amet consectetur. Tellus ac sapien mauris urna urna ipsum. Neque sed lacus aliquet orci risus id. Tristique amet pulvinar pellentesque imperdiet diam urna auctor pellentesque commodo. Tincidunt et auctor et vitae in adipiscing enim. Lorem ipsum dolor sit amet consectetur. Tellus ac sapien mauris urna urna ipsum. Neque sed lacus aliquet orci risus id. Tristique amet pulvinar pellentesque imperdiet diam urna auctor pellentesque commodo. Tincidunt et auctor et vitae in adipiscing enim.</div>      
+                    <div className='w-[1100px] h-[126px] rounded-[10px] border-[#ACACAC] border-[1px] font-[400] text-[15px] p-4'>{bio}</div>      
                     {/* { bio.description} */}
                 </div>
                 <div className='flex flex-col mt-8'>
                     <h1 className='font-[600] text-[15px]'>Skills</h1>
                     <div className='flex flex-wrap  p-8 pl-0'>
-                    {skills.map((skill,index)=>{
+                    {skill.map((skill,index)=>{
                         return(
                                   <div className='h-[54px] w-[298px] mr-4  bg-[#006BC2]  mb-4 flex pt-3 pl-3 text-white rounded-[10px]'>
                                   <div className='flex w-full'>
-                                  <h1 className='text-[15px] min-w-[200px] w-[4/5]'>{skill}</h1>
+                                  <h1 className='text-[15px] min-w-[200px] w-[4/5]'>{skill.skill}</h1>
                                   <div className='flex  justify-end  mr-[2]'>
                                       {/* <img src={pen} key={index} className='w-[22px] h-[22px] inline mr-2' /> */}
-                                      <About_skill />
-                                      <img src={xmark} key={index} className='w-[22px] h-[22px] inline mr-2' />
+                                      <About_skill skill={skill} setSkill={setSkill} />
+                                      <img src={xmark} key={index} className='w-[22px] h-[22px] inline mr-2' onClick={()=>{handleDelete(skill._id)}} />
                                   </div>
                                   </div>
                                   </div>
                         )
-                    })}
+                    })};
                        {/* <button className='flex self-start font-[600] items-center justify-center w-[286px] h-[54px] text-[15px] font-[600] bg-[#EAFCFF] butt rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF]'> <FontAwesomeIcon icon={faPlus} className='mr-2' /> Add Skill</button> */}
-                       <About_skilladd />
+                       <About_skilladd skill={skill} setSkill={setSkill}/>
                     </div>
                 </div>
                 <h1 className='leading-[24px] font-[600] text-[15px] mb-4 mt-5 self-start'>Professional Experience</h1>
  
-          {experiences.map((experience,index)=>{
+          {experience.map((experience,index)=>{
             return (
 
         <div className='flex flex-col w-[1100px] h-auto mb-5  border-[1px] border-[#ACACAC] rounded-[10px] p-5'>
@@ -74,12 +172,12 @@ function AdminAbout() {
                 <h1 className='font-[500] text-[15px] '>{experience.position}</h1>
             <div className='flex '>
             {/* <img src={pen1} className='w-[22px] h-[22px] ' /> */}
-            <About_prof />
+            <About_prof experience={experience} setExperience={setExperience} />
             <img src={xmark} className='w-[22px] h-[22px]  text-[black] ' />
             </div>
                 </div>
-                <h1 className='text-[#565656] text-[13px] font-[400]'>{experience.location}</h1>
-               <h1 className='text-[#565656] text-[13px] font-[400] pb-2'>{experience.date}</h1>
+                <h1 className='text-[#565656] text-[13px] font-[400]'>{experience.organization} , {experience.location}</h1>
+               <h1 className='text-[#565656] text-[13px] font-[400] pb-2'><span>{experience.startDate}</span> - <span>{experience.endDate}</span></h1>
                </div>
             <div className='flex'>
                 <p className='text-[15px] font-[400] leading-[24px] mr-2'>{experience.desc}.</p>         
@@ -104,14 +202,14 @@ function AdminAbout() {
             </div>
         </div> */}
       {/* <button className='flex justify-self-start self-start mt-4 items-center justify-center w-[319px] h-[50px] text-[15px] font-[600] bg-[#EAFCFF] rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF]'> <FontAwesomeIcon icon={faPlus} className='mr-2' /> Add Experience</button> */}
-      <About_profadd />
+      <About_profadd experience={experience} setExperience={setExperience}  />
       <div className='flex flex-col '>
         <div className='flex justify-between mt-8'>
         <h1 className='leading-[24px] font-[600] text-[15px] mb-3 '>Achievements</h1>
         {/* <img src={pen1} className='w-[22px] h-[22px]   text-[black] mr-16' /> */}
-        <About_achievement />
+        <About_achievement achievement={achievement} setAchievement={setAchievement} />
         </div>
-        <div className='w-[1100px] h-[126px] rounded-[10px] border-[#ACACAC] border-[1px] font-[400] text-[15px] p-4'>Lorem ipsum dolor sit amet consectetur. Tellus ac sapien mauris urna urna ipsum. Neque sed lacus aliquet orci risus id. Tristique amet pulvinar pellentesque imperdiet diam urna auctor pellentesque commodo. Tincidunt et auctor et vitae in adipiscing enim. Lorem ipsum dolor sit amet consectetur. Tellus ac sapien mauris urna urna ipsum. Neque sed lacus aliquet orci risus id. Tristique amet pulvinar pellentesque imperdiet diam urna auctor pellentesque commodo. Tincidunt et auctor et vitae in adipiscing enim.</div>
+        <div className='w-[1100px] h-[126px] rounded-[10px] border-[#ACACAC] border-[1px] font-[400] text-[15px] p-4'>{achievement}</div>
         </div> 
         <div className='flex flex-col'>
          <h1 className='text-[15px] font-[600] mt-8 mb-3'>Resume</h1>

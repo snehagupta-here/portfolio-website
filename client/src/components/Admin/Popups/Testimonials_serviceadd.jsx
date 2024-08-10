@@ -20,7 +20,7 @@ export default function ServiceDetailsForm() {
   async function testimonialserviceadd(ev){
     const data = new FormData();
     data.set('serviceName',serviceName);
-    data.set('organizationName',organizationName);
+    // data.set('organizationName',organizationName);
     data.set('photo',photo);
     data.set('description',description);
     ev.preventDefault();

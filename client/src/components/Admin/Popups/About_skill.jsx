@@ -1,44 +1,56 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import pen from "../../../images/pen.png";
-export default function Herosection_skillname() {
+export default function Herosection_skillname(props) {
   const [showModal, setShowModal] = useState(false);
-  const [skillName, setSkillName] = useState(""); // State to hold the skill name
+  const [skill, setSkill] = useState(props.skill.skill); // State to hold the skill name
 
-
-  async function Cnpost(ev){
-    const data = new FormData();
-    data.set('skillName',skillName);
-    ev.preventDefault();
-    const response = await fetch('http://localhost:5000/api/about', {
-        method:'POST',
-        body: data,
-        credentials: "include"
-    });
-    if(response.ok){
-        console.log("data sent");
+  const handleUpdate = async () => {
+    try {
+      console.log("Updating title:", skill);
+    await updateSkill();
+  
+      //  setRefresh(!refresh); // Trigger re-render
+      setShowModal(false); // Close the modal after updating
+    } catch (error) {
+      console.error("Update failed:", error);
     }
-  }
-  const handleUpdate = () => {
-    // Implement your update logic here (e.g., send the updated skill name to an API)
-    console.log("Updated Skill Name:", skillName);
-    setShowModal(false); // Close the modal after updating
-    skillupdate();
   };
-  async function skillupdate(ev){
-    const data = new FormData();
-    data.set('skillName',skillName);
-    ev.preventDefault();
-    const response = await fetch('http://localhost:5000/api/About/skills/edit', {
-        method:'POST',
-        body: data,
-        credentials: "include"
+  
+  async function updateSkill() {
+    const data = { skill };
+    console.log("Sending updated skill:", skill);
+    console.log("Skill ID:", props.skill._id);   
+    const response = await fetch(`http://localhost:5000/api/About/skills/edit/${props.skill._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data),
     });
-    if(response.ok){
-        console.log("updated");
+  
+    if (!response.ok) {
+      throw new Error('Network response was not ok.');
     }
+  
+    const result = await response.json();
+    console.log('Update successful:', result.skill);
+    //  console.log("props title:",props.title);
+    // props.setTitle((prevItem) => ({
+    //   ...prevItem,
+    //   title: result.title
+    // }));
+    props.setSkill((prevItems) =>
+      prevItems.map((item) =>
+        item._id === props.skill._id ? { ...item, skill: result.skill } : item
+      )
+    );
+    // props.setTitle(props.title.title:result.title);
+    // if (result.title) {
+    //   setTitle(result.title); // Update state with the new title
+    //   console.log("State updated to:", result.title);
+    // }
   }
-
   return (
     <>
       {/* <button
@@ -74,8 +86,8 @@ export default function Herosection_skillname() {
                 {/* Text input for entering the skill name */}
                 <input
                   type="text"
-                  value={skillName}
-                  onChange={(e) => setSkillName(e.target.value)}
+                  value={skill}
+                  onChange={(e) => setSkill(e.target.value)}
                   className="w-full bg-gray-100 border border-[#006BC2] rounded-xl pl-4 py-3 text-sm text-gray-700 "
                   placeholder="Enter skill name"
                 />

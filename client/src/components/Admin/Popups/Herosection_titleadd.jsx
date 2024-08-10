@@ -2,26 +2,40 @@ import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faPlus, faPen } from '@fortawesome/free-solid-svg-icons';
-export default function Herosection_titleadd() {
+export default function Herosection_titleadd(props) {
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState(""); // State to hold the input value
 
-  const handleUpdate = () => {
+  const handleUpdate = async (ev) => {
     // Implement your update logic here (e.g., send the updated name to an API)
     console.log("Add title:", title);
+    await  addtitle(ev);
     setShowModal(false); // Close the modal after updating
-    addtitle();
   };
-  async function addtitle(ev){
+  const addtitle = async (ev) => {
+    ev.preventDefault();
     const data = new FormData();
     data.set('title',title);
-    ev.preventDefault();
+    console.log(data);
     const response = await fetch('http://localhost:5000/api/Hero/titles/create', {
         method:'POST',
-        body: data,
-        credentials: "include"
+        // headers:{
+        //   'Content-Type':'application/json',
+        // },
+        body:data,
+        // credentials: "include"
     });
+    if (!response.ok) {
+      throw new Error('Network response was not ok.');
+    }
+
+    const result = await response.json();
+    console.log('Title added successfully:', result);
+    // console.log('skill added successfully:', result);
+    console.log("props.title:",props.title);
+         props.setTitle([...props.title,result]);
   }
+
   return (
     <>
       {/* <button
@@ -44,7 +58,7 @@ export default function Herosection_titleadd() {
                 </h3>
                 <button
                   className="p-1 ml-auto border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                  onClick={()=>setShowModal(false)}
+                  onClick={()=>{setShowModal(false); setTitle("")}}
                 >
                   <IoClose />
                 </button>
@@ -54,11 +68,9 @@ export default function Herosection_titleadd() {
                 <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed">
                   Title
                 </h4>
-                {/* Text input for entering the first name */}
-                
+                {/* Text input for entering the first name */}               
                 <input
-                  type="text"
-                  value={title}
+                  type="text"            
                   onChange={(e) => setTitle(e.target.value)}
                   className="w-full bg-[#EDEDED] border border-[#006BC2] rounded-xl pl-4 py-4 "
                   placeholder="Enter title"

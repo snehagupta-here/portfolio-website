@@ -3,28 +3,37 @@ import { IoClose } from "react-icons/io5";
 import pen1 from "../../../images/pen1.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faPlus, faPen } from '@fortawesome/free-solid-svg-icons';
-export default function Herosection_skillname() {
+export default function Herosection_skillname(props) {
   const [showModal, setShowModal] = useState(false);
-  const [skillName, setSkillName] = useState(""); // State to hold the skill name
+  const [skill, setSkill] = useState(""); // State to hold the skill name
 
-  const handleUpdate = () => {
-    // Implement your update logic here (e.g., send the updated skill name to an API)
-    console.log("Updated Skill Name:", skillName);
+  const handleUpdate = async (ev) => {
+    // Implement your update logic here (e.g., send the updated name to an API)
+    console.log("Add skill:", skill);
+    await  addskill(ev);
     setShowModal(false); // Close the modal after updating
-    addskill();
   };
-  async function addskill(ev){
-    const data = new FormData();
-    data.set('skillName',skillName);
+  const addskill = async (ev) => {
     ev.preventDefault();
+    const data = new FormData();
+    data.set('skill',skill);
+    console.log(data);
     const response = await fetch('http://localhost:5000/api/About/skills/create', {
         method:'POST',
-        body: data,
-        credentials: "include"
+        // headers:{
+        //   'Content-Type':'application/json',
+        // },
+        body:data
+        // credentials: "include"
     });
-    if(response.ok){
-        console.log("skill added");
+    if (!response.ok) {
+      throw new Error('Network response was not ok.');
     }
+
+    const result = await response.json();
+    console.log('skill added successfully:', result);
+    console.log("props.skill:",props.skill);
+         props.setSkill([...props.skill,result]);
   }
   return (
     <>
@@ -61,8 +70,8 @@ export default function Herosection_skillname() {
                 {/* Text input for entering the skill name */}
                 <input
                   type="text"
-                  value={skillName}
-                  onChange={(e) => setSkillName(e.target.value)}
+                  value={skill}
+                  onChange={(e) => setSkill(e.target.value)}
                   className="w-full bg-gray-100 border border-[#006BC2] rounded-xl pl-4 py-3 text-sm text-gray-700 "
                   placeholder="Enter skill name"
                 />

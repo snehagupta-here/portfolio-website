@@ -1,93 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleXmark, faPlus, faPen } from '@fortawesome/free-solid-svg-icons';
-const months = [
-  "January", "February", "March", "April", "May", "June", 
-  "July", "August", "September", "October", "November", "December"
-];
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-export default function Herosection_skillname() {
+export default function Herosection_skillname(props) {
   const [showModal, setShowModal] = useState(false);
-  const [profession, setProfession] = useState("");
-  const [organization, setOrganization] = useState("");
-  const [location, setLocation] = useState("");
-  const [isRemote, setIsRemote] = useState(false);
-  const [startMonth, setStartMonth] = useState("");
-  const [startYear, setStartYear] = useState("");
-  const [endMonth, setEndMonth] = useState("");
-  const [endYear, setEndYear] = useState("");
-  const [currentlyWorking, setCurrentlyWorking] = useState(false);
-  const [description, setDescription] = useState("");
-
-  async function Cnpost(ev){
-    const data = new FormData();
-    data.set('profession',profession);
-    data.set('organization',organization);
-    data.set('location',location);
-    data.set('isRemote',isRemote);
-    data.set('startMonth',startMonth);
-    data.set('startYear',startYear);
-    data.set('endMonth',endMonth);
-    data.set('currentlyWorking',currentlyWorking);
-    data.set('description',description);
-    ev.preventDefault();
-    const response = await fetch('http://localhost:5000/api/about', {
-        method:'POST',
-        body: data,
-        credentials: "include"
-    });
-    if(response.ok){
-      console.log("data sent");
-   }
-  }
+  const [experience, setExperience] = useState({ profession: '',
+    organization: '',
+    location: '',
+    isRemote: false,
+    startDate: '',
+    endDate: '',
+    currentlyWorkingHere: false,
+    description: ''});
 
   const handleUpdate = () => {
-    console.log("Details:", {
-      profession,
-      organization,
-      location,
-      isRemote,
-      startMonth,
-      startYear,
-      endMonth,
-      endYear,
-      currentlyWorking,
-      description
-    });
+    // Additional logic for handling the update
+    addExperience();
     setShowModal(false); // Close the modal after updating
-    addproffexp()
   };
-  async function addproffexp(ev){
-    const data = new FormData();
-    data.set('profession',profession);
-    data.set('organization',organization);
-    data.set('location',location);
-    data.set('isRemote',isRemote);
-    data.set('startDate',startDate);
-    data.set('endDate',endDate);
-    data.set('currentlyWorking',currentlyWorking);
-    data.set('description',description);
-    ev.preventDefault();
-    const response = await fetch('http://localhost:5000/api/About/professional-experience/', {
-        method:'POST',
-        body: data,
-        credentials: "include"
-    });
-    if(response.ok){
-        console.log("added");
+    const addExperience = async () =>{
+      console.log("organization",experience.organization);
     }
-  }
   return (
     <>
-      {/* <button
-        className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        type="button"
+      <button
+        className='flex justify-self-start self-start mt-4 items-center justify-center w-[319px] h-[50px] text-[15px] font-[600] bg-[#EAFCFF] rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF]'
         onClick={() => setShowModal(true)}
       >
-        Details
-      </button> */}
-       <button className='flex justify-self-start self-start mt-4 items-center justify-center w-[319px] h-[50px] text-[15px] font-[600] bg-[#EAFCFF] rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF]' onClick={()=>setShowModal(true)}> <FontAwesomeIcon icon={faPlus} className='mr-2'  /> Add Experience</button>
+        <FontAwesomeIcon icon={faPlus} className='mr-2' /> Add Experience
+      </button>
+
       {showModal && (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <div className="relative w-auto my-6 mx-auto max-w-3xl">
@@ -109,109 +52,83 @@ export default function Herosection_skillname() {
                 </h4>
                 <input
                   type="text"
-                  value={profession}
-                  onChange={(e) => setProfession(e.target.value)}
+                  value={experience.profession}
+                  onChange={(e) => setExperience({ ...experience, profession: e.target.value })}
                   placeholder="Profession"
                   className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mb-4"
                 />
+
                 <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed">
                   Organization
                 </h4>
                 <input
                   type="text"
-                  value={organization}
-                  onChange={(e) => setOrganization(e.target.value)}
+                  value={experience.organization}
+                  onChange={(e) => setExperience({ ...experience, organization: e.target.value })}
                   placeholder="Organization"
                   className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mb-4"
                 />
+
                 <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed">
                   Location
                 </h4>
                 <input
                   type="text"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
+                  value={experience.location}
+                  onChange={(e) => setExperience({ ...experience, location: e.target.value })}
                   placeholder="Location"
                   className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mb-4"
+                  disabled={experience.isRemote} // Disable input if isRemote is true
                 />
+
                 <div className="flex items-center mb-4">
                   <input
                     type="checkbox"
-                    checked={isRemote}
-                    onChange={() => setIsRemote(!isRemote)}
+                    checked={experience.isRemote}
+                    onChange={() => setExperience({ ...experience, isRemote: !experience.isRemote })}
                     className="mr-2"
                   />
                   <label className="text-sm text-gray-700">Work from Home</label>
                 </div>
+
                 <div className="flex items-center mb-4">
                   <label className="text-blueGray-500 text-lg font-bold leading-relaxed mr-2">
                     Start Date:
                   </label>
-                  <select
-                    value={startMonth}
-                    onChange={(e) => setStartMonth(e.target.value)}
+                  <input
+                    value={experience.startDate}
+                    onChange={(e) => setExperience({ ...experience, startDate: e.target.value })}
                     className="bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mr-2"
-                  >
-                    <option value="">Month</option>
-                    {months.map((month) => (
-                      <option key={month} value={month}>{month}</option>
-                    ))}
-                  </select>
-                  <select
-                    value={startYear}
-                    onChange={(e) => setStartYear(e.target.value)}
-                    className="bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500"
-                  >
-                    <option value="">Year</option>
-                    {[...Array(10)].map((_, i) => {
-                      const year = new Date().getFullYear() - i;
-                      return <option key={year} value={year}>{year}</option>;
-                    })}
-                  </select>
+                  />
                 </div>
+
                 <div className="flex items-center mb-4">
                   <label className="text-blueGray-500 text-lg font-bold leading-relaxed mr-2">
                     End Date:
                   </label>
-                  <select
-                    value={endMonth}
-                    onChange={(e) => setEndMonth(e.target.value)}
+                  <input
+                    value={experience.endDate}
+                    onChange={(e) => setExperience({ ...experience, endDate: e.target.value })}
                     className="bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mr-2"
-                    disabled={currentlyWorking}
-                  >
-                    <option value="">Month</option>
-                    {months.map((month) => (
-                      <option key={month} value={month}>{month}</option>
-                    ))}
-                  </select>
-                  <select
-                    value={endYear}
-                    onChange={(e) => setEndYear(e.target.value)}
-                    className="bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500"
-                    disabled={currentlyWorking}
-                  >
-                    <option value="">Year</option>
-                    {[...Array(10)].map((_, i) => {
-                      const year = new Date().getFullYear() - i;
-                      return <option key={year} value={year}>{year}</option>;
-                    })}
-                  </select>
+                    disabled={experience.currentlyWorkinghere}
+                  />
                   <div className="flex items-center ml-4">
                     <input
                       type="checkbox"
-                      checked={currentlyWorking}
-                      onChange={() => setCurrentlyWorking(!currentlyWorking)}
+                      checked={experience.currentlyWorkinghere}
+                      onChange={() => setExperience({ ...experience, currentlyWorkinghere: !experience.currentlyWorkinghere })}
                       className="mr-2"
                     />
                     <label className="text-sm text-gray-700">Currently Working Here</label>
                   </div>
                 </div>
+
                 <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed">
                   Description
                 </h4>
                 <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  value={experience.description}
+                  onChange={(e) => setExperience({ ...experience, description: e.target.value })}
                   placeholder="Description"
                   className="w-full h-32 bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 resize-none"
                 />

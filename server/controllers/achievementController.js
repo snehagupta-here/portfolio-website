@@ -12,7 +12,25 @@ const createAchievement = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
+const createOrUpdateAchievement = async (req, res) => {
+  const {achievement } = req.body;
+console.log("achievement",achievement);
+  try {
+    const   userAchievement = await Achievement.findOneAndUpdate(
+    
+      {},  // The filter criteria to find the user
+          { $set: { achievement:achievement } },  // The update operation
+          { 
+            new: true,  // Return the updated document
+           upsert: true  // Insert a new document if none is found
+          }
+    );
+    console.log(userAchievement)
+    res.status(201).json(userAchievement.achievement);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 // Update an existing achievement or create one if not found
 const updateAchievement = async (req, res) => {
   const { id, username, achievement } = req.body;
@@ -58,11 +76,12 @@ const deleteAchievement = async (req, res) => {
 
 // Get achievements by username
 const getAchievementsByUsername = async (req, res) => {
-  const { username } = req.params;
-
+  // const { username } = req.params;
+console.log("getting achievement");
   try {
-    const achievements = await Achievement.find({ username });
-    if (!achievements.length) {
+    const achievements = await Achievement.findOne();
+    console.log(achievements);
+    if (!achievements) {
       return res.status(404).json({ message: 'Achievements not found' });
     }
     res.json(achievements);
@@ -70,10 +89,10 @@ const getAchievementsByUsername = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
 module.exports = {
   createAchievement,
   updateAchievement,
   deleteAchievement,
-  getAchievementsByUsername
+  getAchievementsByUsername,
+  createOrUpdateAchievement
 };

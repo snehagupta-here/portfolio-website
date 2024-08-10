@@ -1,28 +1,31 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import pen1 from "../../../images/pen1.png";
-export default function Herosection_title() {
+export default function Herosection_title(props) {
   const [showModal, setShowModal] = useState(false);
-  const [introduction, setIntroduction] = useState(""); // State to hold the introduction text
+  const [introduction, setIntroduction] = useState(props.introduction); // State to hold the introduction text
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     // Implement your update logic here (e.g., send the updated introduction to an API)
     console.log("Updated Introduction:", introduction);
+    await Cnpost();
     setShowModal(false); // Close the modal after updating
-    async function Cnpost(ev){
-      const data = new FormData();
-      data.set('introduction',introduction);
-      ev.preventDefault();
-      const response = await fetch('http://localhost:5000/post', {
-          method:'POST',
-          body: data,
-          credentials: "include"
-      });
-      // if(response.ok){
-      //     setRedirect(true);
-      // }
-    }
   };
+  async function Cnpost(){
+   const data =  {introduction}
+    const response = await fetch('http://localhost:5000/api/Hero/introduction/updateintroduction', {
+        method:'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),   
+    });
+    if(response.ok){
+           const result = await response.json();
+           console.log("updated intro:",result.introduction);
+           props.setIntroduction(result.introduction);
+    }
+  }
 
   return (
     <>

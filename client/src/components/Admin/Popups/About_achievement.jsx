@@ -1,26 +1,36 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import pen1 from "../../../images/pen1.png";
-export default function AchievementForm() {
+export default function AchievementForm(props) {
   const [showModal, setShowModal] = useState(false);
-  const [achievement, setAchievement] = useState(""); // State to hold the achievement text
+  const [achievement, setAchievement] = useState(props.achievement); // State to hold the achievement text
   const handleUpdate = () => {
-    console.log("Achievement:", achievement);
+    // Implement your update logic here (e.g., send the updated bio to an API)
+    console.log("Updated Bio:", achievement);
     setShowModal(false); // Close the modal after updating
-    // async function Cnpost(ev){
-    //   const data = new FormData();
-    //   data.set('achievement',achievement);
-    //   ev.preventDefault();
-    //   const response = await fetch('http://localhost:5000/post', {
-    //       method:'POST',
-    //       body: data,
-    //       credentials: "include"
-    //   });
-    //   // if(response.ok){
-    //   //     setRedirect(true);
-    //   // }
-    // }
+    aboutachievementadd()
   };
+  async function aboutachievementadd(){
+    // const data = new FormData();
+    // data.set('bio',bio);
+    const data = {achievement};
+    // ev.preventDefault();
+    const response = await fetch('http://localhost:5000/api/About/achievement/update', {
+        method:'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),  
+     
+    });
+    if(response.ok){
+      const achievement = await response.json();
+        console.log("achievement added");
+        console.log(achievement);
+
+        props.setAchievement(achievement);
+    }
+  }
   return (
     <>
       {/* <button

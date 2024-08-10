@@ -3,26 +3,35 @@ import { IoClose } from "react-icons/io5";
 import pen1 from "../../../images/pen1.png";
 export default function Herosection_lastname(props) {
   const [showModal, setShowModal] = useState(false);
-  const [lastName, setLastName] = useState(""); // State to hold the input value
+  const [lastname, setLastName] = useState(props.lastName); // State to hold the input value
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     // Implement your update logic here (e.g., send the updated name to an API)
-    console.log("Updated Last Name:", lastName);
+    console.log("Updated First Name:", lastname);
+    await Cnpost();
     setShowModal(false); // Close the modal after updating
-    updatelastname();
   };
-  async function updatelastname(ev){
-    const data = new FormData();
-    data.set('lastName',lastName);
-    ev.preventDefault();
-    const response = await fetch('http://localhost:5000/post', {//function to be defined
-        method:'PUT',
-        body: data,
-        credentials: "include"
+  async function Cnpost(ev){
+    const data = {lastname};
+    // data.set('firstName',firstname);
+    console.log("sending lastname",lastname);
+    // ev.preventDefault();
+    const response = await fetch('http://localhost:5000/api/Hero/firstname/updatelastname', {//function to be defined
+        method:'PUT',     
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),   
     });
     // if(response.ok){
     //     setRedirect(true);
     // }
+    if(response.ok){
+      console.log("response is received");
+       let result = await response.json();
+      console.log(result);
+       props.setLastname(result);
+    }
   }
 
   return (
@@ -62,7 +71,7 @@ export default function Herosection_lastname(props) {
                 
                 <input
                   type="text"
-                  value={lastName}
+                  value={lastname}
                   onChange={(e) => setLastName(e.target.value)}
                   className="w-full bg-[#EDEDED] border border-[#006BC2] pl-4 rounded-xl  py-4 "
                   placeholder="Enter last name"

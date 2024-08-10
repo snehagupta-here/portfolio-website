@@ -63,8 +63,8 @@ export default function Herosection_skillname() {
     data.set('organization',organization);
     data.set('location',location);
     data.set('isRemote',isRemote);
-    data.set('startDate',startDate);
-    data.set('endDate',endDate);
+    // data.set('startDate',startDate);
+    // data.set('endDate',endDate);
     data.set('currentlyWorking',currentlyWorking);
     data.set('description',description);
     ev.preventDefault();
