@@ -13,8 +13,8 @@ function App() {
          <>
          <Router>
           <Routes>
-            <Route path="/" element={<HomePage />} /> 
-            <Route path="/admin" element={<AdminHomePage />} /> 
+            {/* <Route path="/" element={<HomePage />} />  */}
+            <Route path="/" element={<AdminHomePage />} /> 
             <Route  path='/sample' element={<About_prof />} />    
           </Routes>
          </Router>
