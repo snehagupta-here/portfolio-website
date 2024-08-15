@@ -1,36 +1,47 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import pen1 from "../../../images/pen1.png";
-export default function ServiceDetailsForm() {
+export default function ServiceDetailsForm(props) {
   const [showModal, setShowModal] = useState(false);
   const [serviceName, setServiceName] = useState("");
   const [photo, setPhoto] = useState(null);
   const [description, setDescription] = useState("");
-
+   const [service,setService] = useState(props.service);
+const [file,setFile] = useState(null);
   const handleUpdate = () => {
-    console.log("Service Details:", {
-      serviceName,
-      photo,
-      description,
-    });
-    setShowModal(false); // Close the modal after updating _____to be done
-    updateservicework()
+    console.log("Service Details:", service);
+    setShowModal(false); // Close the modal after updating
+    Cnpost();
   };
-  async function updateservicework(ev){//to be done 
+  async function Cnpost(){
     const data = new FormData();
-    data.set('serviceName',serviceName);
-    data.set('photo',photo);
-    data.set('description',description);
-    ev.preventDefault();
-    const response = await fetch('http://localhost:5000/post', {
-        method:'POST',
+    // console.log("photo",service.photo);
+    // console.log("file",file);
+    data.set('serviceName',service.serviceName);
+    data.set('description',service.description);
+    data.set('photo',service.photo);
+    // console.log("description",service.description);
+    // Function to handle the file setting
+   
+    const response = await fetch(`http://localhost:5000/api/Services/works/${props.service._id}`, {
+        method:'PUT',
         body: data,
-        credentials: "include"
+        // credentials: "include"
     });
-    // if(response.ok){
-    //     setRedirect(true);
-    // }
+    if(response.ok){
+      const result = await response.json();
+        console.log("service added");
+        console.log("result.photo",result.photo);
+        // console.log('Response content type:', result.photo.headers.get('Content-Type'));
+        // console.log('Response headers:', result.photo.headers);
+      props.setService((prevItems) =>
+        prevItems.map((item) =>
+          item._id === props.service._id ? { ...result } : item
+        )
+      );
+    }
   }
+
 
   return (
     <>
@@ -63,26 +74,28 @@ export default function ServiceDetailsForm() {
                 </h4>
                 <input
                   type="text"
-                  value={serviceName}
-                  onChange={(e) => setServiceName(e.target.value)}
+                  value={service.serviceName}
+                  onChange={(e) => setService({...service,serviceName:e.target.value})}
                   placeholder="Enter service name"
                   className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mb-4"
                 />
                 <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed">
                   Photo
                 </h4>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setPhoto(e.target.files[0])}
-                  className="mb-4"
-                />
+                {service.photo && <img src={`http://localhost:5000/${service.photo}`} className="h-[200px] w-[200px]"  />} 
+                <br></br>
+               <input
+  type="file"
+ // Set the value attribute to the previously uploaded photo file URL
+  onChange={(e) => { setFile(e.target.files[0]); setService({...service, photo: e.target.files[0]})}}
+  className="mb-4"
+/>
                 <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed">
                   Description
                 </h4>
                 <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  value={service.description}
+                  onChange={(e) => setService({...service,description:e.target.value})}
                   placeholder="Enter service description"
                   className="w-full h-32 bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 resize-none"
                 />

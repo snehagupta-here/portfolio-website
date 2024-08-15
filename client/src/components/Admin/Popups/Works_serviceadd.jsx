@@ -2,35 +2,38 @@ import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faPlus, faPen } from '@fortawesome/free-solid-svg-icons';
-export default function ServiceDetailsForm() {
+export default function ServiceDetailsForm(props) {
   const [showModal, setShowModal] = useState(false);
   const [serviceName, setServiceName] = useState("");
   const [photo, setPhoto] = useState(null);
   const [description, setDescription] = useState("");
-
+const [service,setService] = useState({
+  serviceName:"",
+  photo:"",
+  description:""
+})
   const handleUpdate = () => {
-    console.log("Service Details:", {
-      serviceName,
-      photo,
-      description,
-    });
+    console.log("Service Details:", service.serviceName);
     setShowModal(false); // Close the modal after updating
-    async function Cnpost(ev){
-      const data = new FormData();
-      data.set('serviceName',serviceName);
-      data.set('photo',photo);
-      data.set('description',description);
-      ev.preventDefault();
-      const response = await fetch('http://localhost:5000/api/Services/works', {
-          method:'POST',
-          body: data,
-          credentials: "include"
-      });
-      if(response.ok){
-          console.log("service added");
-      }
-    }
+    Cnpost();
   };
+  async function Cnpost(){
+    const data = new FormData();
+    data.set('serviceName',service.serviceName);
+    data.set('photo',service.photo);
+    console.log("description",service.description);
+    data.set('description',service.description);
+    const response = await fetch('http://localhost:5000/api/Services/works', {
+        method:'POST',
+        body: data,
+        // credentials: "include"
+    });
+    if(response.ok){
+      const result = await response.json();
+        console.log("service added");
+             props.setService([...props.service,result]);
+    }
+  }
 
   return (
     <>
@@ -63,26 +66,27 @@ export default function ServiceDetailsForm() {
                 </h4>
                 <input
                   type="text"
-                  value={serviceName}
-                  onChange={(e) => setServiceName(e.target.value)}
+                  value={service.serviceName}
+                  onChange={(e) => setService({...service,serviceName:e.target.value})}
                   placeholder="Enter service name"
                   className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mb-4"
                 />
                 <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed">
                   Photo
                 </h4>
+               {photo && <img src={URL.createObjectURL(photo)} className="h-[200px] w-[200px]"  />} 
+               
                 <input
                   type="file"
-                  accept="image/*"
-                  onChange={(e) => setPhoto(e.target.files[0])}
+                  onChange={(e) => setService({...service,photo:e.target.files[0]})}
                   className="mb-4"
                 />
                 <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed">
                   Description
                 </h4>
                 <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  value={service.description}
+                  onChange={(e) => setService({...service,description:e.target.value})}
                   placeholder="Enter service description"
                   className="w-full h-32 bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 resize-none"
                 />

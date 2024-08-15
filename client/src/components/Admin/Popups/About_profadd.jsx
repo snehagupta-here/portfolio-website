@@ -11,7 +11,7 @@ export default function Herosection_skillname(props) {
     isRemote: false,
     startDate: '',
     endDate: '',
-    currentlyWorkingHere: false,
+    currentlyWorkinghere: false,
     description: ''});
 
   const handleUpdate = () => {
@@ -20,7 +20,29 @@ export default function Herosection_skillname(props) {
     setShowModal(false); // Close the modal after updating
   };
     const addExperience = async () =>{
-      console.log("organization",experience.organization);
+      // console.log("experience",experience);
+      const dataToSend = {
+        ...experience,
+        endDate: experience.currentlyWorkinghere ? null : experience.endDate,
+        location:experience.isRemote? null : experience.location
+      };
+      // console.log(data);
+      const response = await fetch('http://localhost:5000/api/About/professional-experience/', {
+          method:'POST',
+          headers:{
+            'Content-Type':'application/json',
+          },
+          body: JSON.stringify(dataToSend),
+          // credentials: "include"
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok.');
+      }
+  
+      const result = await response.json();
+      // console.log('Experience added successfully:', result);
+         props.setExperience([...props.experience,result]);
+           console.log(props.experience);
     }
   return (
     <>
@@ -74,7 +96,7 @@ export default function Herosection_skillname(props) {
                 </h4>
                 <input
                   type="text"
-                  value={experience.location}
+                  value={experience.isRemote===true?"":experience.location}
                   onChange={(e) => setExperience({ ...experience, location: e.target.value })}
                   placeholder="Location"
                   className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mb-4"
@@ -107,7 +129,7 @@ export default function Herosection_skillname(props) {
                     End Date:
                   </label>
                   <input
-                    value={experience.endDate}
+                    value={experience.currentlyWorkinghere===true?"":experience.endDate}
                     onChange={(e) => setExperience({ ...experience, endDate: e.target.value })}
                     className="bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mr-2"
                     disabled={experience.currentlyWorkinghere}

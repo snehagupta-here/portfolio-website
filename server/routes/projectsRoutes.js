@@ -6,9 +6,12 @@ const WorksController = require('../controllers/projectsController'); // Adjust 
 router.post('/', WorksController.createWork);
 
 // Route for getting works by username
-router.get('/:username', WorksController.getWorksByUsername);
+router.get('/', WorksController.getWorksByUsername);
 
 // Route for updating a work
-router.put('/:username', WorksController.updateWork);
+router.put('/:id', WorksController.updateWork);
+
+// Route for deleting a work
+router.delete('/:id', WorksController.deleteWork);
 
 module.exports = router;

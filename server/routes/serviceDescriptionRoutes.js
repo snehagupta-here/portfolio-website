@@ -6,9 +6,9 @@ const serviceDescriptionController = require('../controllers/serviceDescriptionC
 router.post('/', serviceDescriptionController.createServiceDescription);
 
 // Route for getting service descriptions by username
-router.get('/:username', serviceDescriptionController.getServiceDescriptionsByUsername);
+router.get('/', serviceDescriptionController.getServiceDescriptionsByUsername);
 
 //update Service Description
-router.post('/:username', serviceDescriptionController.updateServiceDescription);
+router.put('/', serviceDescriptionController.updateServiceDescription);
 
 module.exports = router;

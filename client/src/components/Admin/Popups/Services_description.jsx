@@ -1,26 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import pen1 from "../../../images/pen1.png";
-export default function ServiceDescriptionForm() {
+export default function ServiceDescriptionForm(props) {
   const [showModal, setShowModal] = useState(false);
-  const [description, setDescription] = useState(""); // State to hold the description text
-
+  const [description, setDescription] = useState(props.description); // State to hold the description text
+useEffect(()=>{
+     console.log("good description",description);
+},[])
   const handleUpdate = () => {
-    console.log("Updated Description:", description);
+    console.log("Description:", description);
     setShowModal(false); // Close the modal after updating
     updatedescription()
   };
   async function updatedescription(ev){
-    const data = new FormData();
-    data.set('description',description);
-    ev.preventDefault();
-    const response = await fetch('http://localhost:5000/api/Services/service-description', {
+   const data = {description}
+    // ev.preventDefault();
+    const response = await fetch('http://localhost:5000/api/Services/service-description/', {
         method:'PUT',
-        body: data,
-        credentials: "include"
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+        // credentials: "include"
     });
     if(response.ok){
-        console.log("description updated");
+         const description = await  response.json();
+        console.log("description updated",description);
+        props.setDescription(description);
     }
   }
 

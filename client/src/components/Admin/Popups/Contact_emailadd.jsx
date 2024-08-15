@@ -2,25 +2,35 @@ import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faPlus, faPen } from '@fortawesome/free-solid-svg-icons';
-export default function ContactForm() {
+export default function ContactForm(props) {
   const [showModal, setShowModal] = useState(false);
-  const [email, setEmail] = useState("");
+  const [contact,setContact] = useState({
+    types:"",
+    ids:""
+  })
   const handleUpdate = () => {
-    console.log("Email:", email);
-    setShowModal(false); // Close the modal after updating
+    // console.log("type:", contact.types);
+    // console.log("id",contact.id);
     createorupdateemail();
+    setShowModal(false);
+    
+    // Close the modal after updating
   };
-  async function createorupdateemail(ev){
+  async function createorupdateemail(){
     const data=new FormData();
-    data.set("email",email);
-    ev.preventDefault();
+    console.log("type:", contact.types);
+    console.log("ids",contact.ids);
+    data.append("types",contact.types);
+    data.append("ids",contact.ids);
+    console.log(data);
     const response = await fetch('http://localhost:5000/api/contact/', {
       method:'POST',
-      body: data,
-      credentials: "include"
+     body:data
     });
     if(response.ok){
-        console.log("email added");
+      const contacts = await response.json();
+      console.log("added contact:",contacts);
+      props.setContact([...props.contact,contacts]);
     }
   }
   return (
@@ -32,7 +42,7 @@ export default function ContactForm() {
       >
         Contact Us
       </button> */}
-         <button className='flex items-center justify-center w-[323px] h-[54px] bg-[#EAFCFF] butt rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF] ml-3' onClick={()=>{setShowModal(true)}}> <FontAwesomeIcon icon={faPlus} className='mr-2' /> Add Section</button> 
+         <button className='flex items-center justify-center w-[323px] h-[54px] bg-[#EAFCFF] butt rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF] ml-3 mt-4' onClick={()=>{setShowModal(true)}}> <FontAwesomeIcon icon={faPlus} className='mr-2' /> Add Section</button> 
       {showModal && (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <div className="relative w-auto my-6 mx-auto max-w-3xl">
@@ -49,13 +59,23 @@ export default function ContactForm() {
                 </button>
               </div>
               <div className="relative p-6 flex-auto">
-                <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed">
-                  Email
+              <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed">
+                  Type
                 </h4>
                 <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  type="string"
+                  value={contact.types}
+                  onChange={(e) => setContact({...contact,types:e.target.value})}                                                                                                                                        
+                  placeholder="Enter your email"
+                  className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mb-4"
+                />
+                <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed">
+                  id
+                </h4>
+                <input
+                  type="string"
+                  value={contact.ids}
+                  onChange={(e) => setContact({...contact,ids:e.target.value})}                                                                                                                                        
                   placeholder="Enter your email"
                   className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mb-4"
                 />

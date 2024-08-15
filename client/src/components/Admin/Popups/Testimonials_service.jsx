@@ -1,39 +1,37 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import pen1 from "../../../images/pen1.png";
-export default function ServiceDetailsForm() {
+export default function ServiceDetailsForm(props) {
   const [showModal, setShowModal] = useState(false);
-  const [serviceName, setServiceName] = useState("");
-  const [organizationName, setOrganizationName] = useState("");
-  const [photo, setPhoto] = useState(null);
-  const [description, setDescription] = useState("");
-
+   const [testimonial,setTestimonial] = useState(props.testimonial);
   const handleUpdate = () => {
-    console.log("Service Details:", {
-      serviceName,
-      organizationName,
-      photo,
-      description,
-    });
     setShowModal(false); // Close the modal after updating
-    async function Cnpost(ev){
-      const data = new FormData();
-      data.set('serviceName',serviceName);
-      data.set('photo',photo);
-      data.set('description',description);
-      data.set("organizationName",organizationName);
-      ev.preventDefault();
-      const response = await fetch('http://localhost:5000/post', {
-          method:'POST',
-          body: data,
-          credentials: "include"
-      });
-      // if(response.ok){
-      //     setRedirect(true);
-      // }
-    }
+    Cnpost();
   };
-
+  async function Cnpost(){
+    const data = new FormData();
+    data.set('serviceName',testimonial.serviceName);
+    console.log("testimonial photo",testimonial.photo);
+    data.set('photo',testimonial.photo);
+    data.set('description',testimonial.description);
+    data.set("organizationName",testimonial.organizationName);
+    // ev.preventDefault();
+    const response = await fetch(`http://localhost:5000/api/testimonials/${testimonial._id}`, {
+        method:'PUT',
+        body: data,
+        // credentials: "include"
+    });
+    if(response.ok){
+      const result = await response.json();
+      console.log("testimonial added");
+        
+    props.setTestimonial((prevItems) =>
+      prevItems.map((item) =>
+        item._id === props.testimonial._id ? { ...result } : item
+      )
+    );
+    }
+  }
   return (
     <>
       {/* <button
@@ -65,8 +63,8 @@ export default function ServiceDetailsForm() {
                 </h4>
                 <input
                   type="text"
-                  value={serviceName}
-                  onChange={(e) => setServiceName(e.target.value)}
+                  value={testimonial.serviceName}
+                  onChange={(e) => setTestimonial({...testimonial,serviceName:e.target.value})}
                   placeholder="Enter service name"
                   className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mb-4"
                 />
@@ -75,8 +73,8 @@ export default function ServiceDetailsForm() {
                 </h4>
                 <input
                   type="text"
-                  value={organizationName}
-                  onChange={(e) => setOrganizationName(e.target.value)}
+                  value={testimonial.organizationName}
+                  onChange={(e) => setTestimonial({...testimonial,organizationName:e.target.value})}
                   placeholder="Enter organization name"
                   className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mb-4"
                 />
@@ -86,15 +84,15 @@ export default function ServiceDetailsForm() {
                 <input
                   type="file"
                   accept="image/*"
-                  onChange={(e) => setPhoto(e.target.files[0])}
+                  onChange={(e) => setTestimonial({...testimonial,photo:e.target.files[0]})}
                   className="mb-4"
                 />
                 <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed">
                   Description
                 </h4>
                 <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  value={testimonial.description}
+                  onChange={(e) => setTestimonial({...testimonial,description:e.target.value})}
                   placeholder="Enter service description"
                   className="w-full h-32 bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 resize-none"
                 />
@@ -105,7 +103,7 @@ export default function ServiceDetailsForm() {
                   type="button"
                   onClick={handleUpdate}
                 >
-                  Add
+                  Update
                 </button>
               </div>
             </div>

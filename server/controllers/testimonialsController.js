@@ -1,25 +1,46 @@
-const Testimonials = require('../models/Testimonials/Testimonials');
+const Testimonial = require('../models/Testimonials/Testimonials');
+const multer = require('multer');
+const path = require('path');
 
+// Multer configuration
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/profiles'); // Specify the upload directory
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}${path.extname(file.originalname)}`); // Rename the file
+  }
+});
+
+const upload = multer({ storage: storage }).single('photo');
 // Create a new work
 const createWork = async (req, res) => {
-  const { username, serviceName, organizationName, photo, description } = req.body;
+  
+  upload(req, res, async (err) => {
+    if (err) {
+      console.log("Error during file upload:", err);
+      return res.status(400).json({ error: err.message });
+    }
 
+    const photoPath = req.file ? req.file.path : null;
   try {
-    const newWork = new Testimonials({ username, serviceName, organizationName, photo, description });
+    const { serviceName, organizationName, photo, description } = req.body;
+    const newWork = new Testimonial({  serviceName, organizationName, photo:photoPath, description });
     await newWork.save();
     res.status(201).json(newWork);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
+  });
 };
 
 // Get Testimonials by username
 const getTestimonialsByUsername = async (req, res) => {
-  const { username } = req.params;
+  // const { username } = req.params;
 
   try {
-    const testimonials = await Testimonials.find({ username });
-    if (!testimonials.length) {
+    const testimonials = await Testimonial.find();
+    if (!testimonials) {
       return res.status(404).json({ message: 'Testimonials not found' });
     }
     res.json(testimonials);
@@ -30,12 +51,20 @@ const getTestimonialsByUsername = async (req, res) => {
 
 // Update a testimonial
 const updateTestimonial = async (req, res) => {
-  const { id, serviceName, organizationName, photo, description } = req.body;
+  upload(req, res, async (err) => {
+    if (err) {
+      console.log("Error during file upload:", err);
+      return res.status(400).json({ error: err.message });
+    }
+
+    const photoPath = req.file ? req.file.path : null;
+  const {id} = req.params;
+  const {serviceName, organizationName, photo, description } = req.body;
 
   try {
-    const updatedTestimonial = await Testimonials.findByIdAndUpdate(
+    const updatedTestimonial = await Testimonial.findByIdAndUpdate(
       id,
-      { serviceName, organizationName, photo, description },
+      { serviceName, organizationName, photo:photoPath, description },
       { new: true }
     );
 
@@ -47,10 +76,25 @@ const updateTestimonial = async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
+});
 };
+const deleteTestimonial = async (req,res) =>{
+  const { id } = req.params;
+console.log("deleting Testimonial");
+  try {
+    const deletedTestimonial = await Testimonial.findByIdAndDelete(id);
 
+    if (!deletedTestimonial) {
+      return res.status(404).json({ message: 'Testimonial not found' });
+    }
+    res.json({ message: 'Testimonial deleted successfully' });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
 module.exports = {
   createWork,
   getTestimonialsByUsername,
-  updateTestimonial
+  updateTestimonial,
+  deleteTestimonial
 };

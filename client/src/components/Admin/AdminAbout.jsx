@@ -13,7 +13,9 @@ import About_skill from "./Popups/About_skill";
 import About_skilladd from "./Popups/About_skilladd";
 import About_achievement from "./Popups/About_achievement";
 import axios from "axios";
+import xmark1 from "../../images/xmark1.png";
 import {useState, useEffect} from "react";
+import upload from "../../images/upload.png";
 function AdminAbout() {
     // const skills = ["skill1","skill2","skill3" ,"skill4"];
     const [skill,setSkill] = useState([]);
@@ -30,33 +32,37 @@ function AdminAbout() {
     //        getBio();
     // },[])
     useEffect(()=>{
-            //    getBio();
-            //    getAllSkill();
-            //    getAchievement();
-
+               getBio();
+               getAllSkill();
+               getAchievement();
+                getExperience();
     },[])
+    const [file,setFile] = useState(null);
+   const getExperience = async () =>{
+    try {
+        const response = await fetch('http://localhost:5000/api/About/professional-experience/', {
+          method: 'GET'          
+        });     
+        if (!response.ok) {
+          throw new Error(`Failed to fetch experience : ${response.statusText}`);
+        }           
+        const experience = await response.json();
+        console.log('Fetched bio:', experience);            
+        setExperience(experience);
+      } catch (error) {
+        console.error('Error fetching titles:', error.message);
+      }
+   }
     const getBio = async () =>{
         try {
-            // console.log("hi welcome");
             const response = await fetch('http://localhost:5000/api/About/bio/bio', {
               method: 'GET'          
-            });
-      
+            });     
             if (!response.ok) {
               throw new Error(`Failed to fetch titles : ${response.statusText}`);
-            }
-                  //  console.log("hi welcome to the group");
+            }           
             const bio = await response.json();
-            console.log('Fetched bio:', bio);
-          
-            // Update state with fetched titles
-            //  setTitle(json);
-            // user.map((us) =>{
-  
-            //   setFirstname(us.firstname);
-            //   setLastname(us.lastname);
-            // })
-            // console.log(intro);
+            console.log('Fetched bio:', bio);            
             setBio(bio.bio);
           } catch (error) {
             console.error('Error fetching titles:', error.message);
@@ -125,6 +131,26 @@ function AdminAbout() {
           console.error('Error fetching skills:', error.message);
         }
       };
+      const handleDelete1=async (id)=>{
+        // ev.preventDefault();
+    
+          // const data =new FormData();
+          // data.set('titleId',id);
+          // data.set('username',username);
+          const response = await fetch(`http://localhost:5000/api/About/professional-experience/remove/${id}`, {//function to be defined
+              method:'DELETE'       
+          });
+          console.log(response);
+          if(response.ok){
+              console.log("experience deleted");
+              const newExperience = experience.filter((experience) => {return experience._id !== id});
+              console.log(newExperience);
+              setExperience(newExperience);
+          }
+      };
+      const handleFileChange = async () =>{
+
+      }
   return (
  <>
  <div id="about" className='flex flex-col'>
@@ -169,18 +195,19 @@ function AdminAbout() {
 
             <div className='flex flex-col'>
                 <div className='flex w-full justify-between'>
-                <h1 className='font-[500] text-[15px] '>{experience.position}</h1>
+                <h1 className='font-[500] text-[15px] '>{experience.profession}</h1>
             <div className='flex '>
             {/* <img src={pen1} className='w-[22px] h-[22px] ' /> */}
             <About_prof experience={experience} setExperience={setExperience} />
-            <img src={xmark} className='w-[22px] h-[22px]  text-[black] ' />
+            &nbsp;
+            <img src={xmark1} onClick={()=>{handleDelete1(experience._id)}} className='w-[22px] h-[22px]  text-[black] ' />
             </div>
                 </div>
-                <h1 className='text-[#565656] text-[13px] font-[400]'>{experience.organization} , {experience.location}</h1>
-               <h1 className='text-[#565656] text-[13px] font-[400] pb-2'><span>{experience.startDate}</span> - <span>{experience.endDate}</span></h1>
+                <h1 className='text-[#565656] text-[13px] font-[400]'>{experience.organization} , {!experience.location?"Remote":experience.location}</h1>
+               <h1 className='text-[#565656] text-[13px] font-[400] pb-2'><span>{experience.startDate}</span> - <span>{!experience.endDate?"Present":experience.endDate}</span></h1>
                </div>
             <div className='flex'>
-                <p className='text-[15px] font-[400] leading-[24px] mr-2'>{experience.desc}.</p>         
+                <p className='text-[15px] font-[400] leading-[24px] mr-2'>{experience.description}.</p>         
             </div>
         </div>
             )
@@ -239,6 +266,17 @@ function AdminAbout() {
            <input type="checkbox" className='w-[28px] h-[28px] mr-3' />
             </div>
          </div>
+            <div className='block mt-8'>
+
+            {file && <img src={URL.createObjectURL(file)} className='w-[260px] h-[287px] rounded-[20px] mb-6' />}    
+          <div className='flex items-center'>
+                <label htmlFor="fileInput"><img src={upload} className='h-[20px] w-[20px] mr-2 ' /></label>
+                
+                <input type="file" id="fileInput" style={{display:"none"}} onChange={e=>setFile(e.target.files[0])} />     
+                <button className='flex items-center justify-center w-[260px] h-[54px] bg-[#EAFCFF] butt rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF] mb-8' onClick={handleFileChange}> 
+                 Upload Resume</button>     
+          </div>
+            </div>
         </div>
   </div>
   </div>

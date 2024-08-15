@@ -1,18 +1,24 @@
 const ProfessionalExperience = require('../models/About/ProfessionalExperience');
 
 const createProfessionalExperience = async (req, res) => {
-  const { username, profession, organization, location, startDate, endDate, description, workfromhome, currentlyWorkinghere } = req.body;
-
+  const { profession, organization, location, startDate, endDate, description, isRemote, currentlyWorkinghere } = req.body;
+    console.log("getting experience");
+    console.log("profession",profession);
+    console.log("organization",organization);
+    console.log("location",location);
+    console.log("startDate",startDate);
+    console.log("description",description);
+    console.log("isRemote",isRemote);
+    console.log("currentlyWorkinghere",currentlyWorkinghere);
   try {
-    const newExperience = new ProfessionalExperience({ 
-      username, 
+    const newExperience = new ProfessionalExperience({      
       profession, 
       organization, 
       location, 
       startDate, 
       endDate, 
       description, 
-      workfromhome, 
+      isRemote, 
       currentlyWorkinghere 
     });
     await newExperience.save();
@@ -24,8 +30,15 @@ const createProfessionalExperience = async (req, res) => {
 
 const updateProfessionalExperience = async (req, res) => {
   const { id } = req.params;
-  const { profession, organization, location, startDate, endDate, description, workfromhome, currentlyWorkinghere } = req.body;
-
+  const { profession, organization, location, startDate, endDate, description, isRemote, currentlyWorkinghere } = req.body;
+  // console.log("getting experience");
+  // console.log("profession",profession);
+  // console.log("organization",organization);
+  // console.log("location",location);
+  // console.log("startDate",startDate);
+  // console.log("description",description);
+  console.log("isRemote",isRemote);
+  console.log("currentlyWorkinghere",currentlyWorkinghere);
   try {
     const updatedExperience = await ProfessionalExperience.findByIdAndUpdate(
       id,
@@ -36,12 +49,12 @@ const updateProfessionalExperience = async (req, res) => {
         startDate, 
         endDate, 
         description, 
-        workfromhome, 
+        isRemote, 
         currentlyWorkinghere 
       },
       { new: true }
     );
-
+          console.log(updatedExperience);
     if (!updatedExperience) {
       return res.status(404).json({ message: 'Professional experience not found' });
     }
@@ -53,8 +66,8 @@ const updateProfessionalExperience = async (req, res) => {
 };
 
 const deleteProfessionalExperience = async (req, res) => {
-  const { id } = req.body;
-
+  const { id } = req.params;
+console.log("deleting working");
   try {
     const deletedExperience = await ProfessionalExperience.findByIdAndDelete(id);
 
@@ -69,10 +82,10 @@ const deleteProfessionalExperience = async (req, res) => {
 };
 
 const getProfessionalExperiencesByUsername = async (req, res) => {
-  const { username } = req.params;
+  // const { username } = req.params;
 
   try {
-    const experiences = await ProfessionalExperience.find({ username });
+    const experiences = await ProfessionalExperience.find();
     if (!experiences.length) {
       return res.status(404).json({ message: 'Professional experiences not found' });
     }

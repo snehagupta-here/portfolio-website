@@ -6,12 +6,12 @@ const professionalExperienceController = require('../controllers/professionalExp
 router.post('/', professionalExperienceController.createProfessionalExperience);
 
 // Route for updating a professional experience
-router.put('/', professionalExperienceController.updateProfessionalExperience);
+router.put('/:id', professionalExperienceController.updateProfessionalExperience);
 
 // Route for deleting a professional experience
-router.delete('/', professionalExperienceController.deleteProfessionalExperience);
+router.delete('/remove/:id', professionalExperienceController.deleteProfessionalExperience);
 
 // Route for getting professional experiences by username
-router.get('/:username', professionalExperienceController.getProfessionalExperiencesByUsername);
+router.get('/', professionalExperienceController.getProfessionalExperiencesByUsername);
 
 module.exports = router;

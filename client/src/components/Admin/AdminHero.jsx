@@ -14,6 +14,7 @@ import Herosection_lastname from './Popups/Herosection_lastname';
 import Herosection_title from './Popups/Herosection_title';
 import Herosection_titleadd from './Popups/Herosection_titleadd';
 import Herosection_introduction from './Popups/Herosection_introduction';
+
 // import { getAllTitles } from '../../../../server/controllers/titleController';
 function AdminHero(props) {
     const [file,setFile] = useState( null);
@@ -54,21 +55,69 @@ function AdminHero(props) {
             setTitle(newTitles);
         }
     };
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = () => {
-            setSelectedFile(reader.result);
-          };
-          reader.onerror = (error) => {
-            console.error('Error occurred while reading the file:', error);
-          };
-          reader.readAsDataURL(file);
-        } else {
-          console.error('No file selected');
+    // const handleFileChange =async (event) => {
+    //     const file = event.target.files[0];
+    //     if (file) {
+    //       const reader = new FileReader();
+    //       reader.onload = async () => {
+    //         setSelectedFile(reader.result);
+    //       };
+    //           // Prepare the form data to send to the server
+    //     const formData = new FormData();
+    //     formData.append('profilePicture', file);
+
+    //     try {
+    //       // Make a POST request to upload the image
+    //       const response = await fetch(`http://localhost:5000/api/Hero/profilepic`,  {
+    //         method:'PUT',
+    //         headers: {
+    //           'Content-Type': 'multipart/form-data',
+    //         },
+    //         body:formData
+    //       });
+    //       // Handle response (e.g., update state, show success message)
+    //       console.log('File uploaded successfully:', response.data);
+    //     } catch (error) {
+    //       console.error('Error occurred while uploading the file:', error);
+    //     }
+    //     reader.onerror = (error) => {
+    //       console.error('Error occurred while reading the file:', error);
+    //     };
+    //     reader.readAsDataURL(file);
+    //   }
+    //      else {
+    //       console.log('No file selected');
+    //     }
+    //   };
+    const handleFileChange = async () => {
+      console.log("getting file");
+      console.log(file);
+      if (file) {
+        const formData = new FormData();
+        formData.append('profile', file);
+        // formData.append('username', 'your-username'); // Replace with the actual username or another identifier
+  
+        try {
+          const response = await fetch(`http://localhost:5000/api/Hero/profilepic`, {
+            method: 'PUT',
+            body: formData,
+          });
+  
+          if (response.ok) {
+            const data = await response.json();
+            console.log('File uploaded successfully:', data);
+
+          } else {
+            console.error('Failed to upload file:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error occurred while uploading the file:', error);
         }
-      };
+      } else {
+        console.log('No file selected');
+      }
+    };
+    
       // const titles = ["Co-Founder @ Ransh Innovations","Gold Medalist NITM'22","Product Manager" ,"Software Engineer","Innovator"];
      
 
@@ -85,7 +134,43 @@ function AdminHero(props) {
                   getAllTitle();
                   getUser();
                   getIntroduction();
+
+                  getProfile();
       },[])
+      const getProfile = async () =>{
+        
+        try {
+          console.log("hi welcome");
+          const response = await fetch('http://localhost:5000/api/Hero/profilepic/profile', {
+            method: 'GET'          
+          });
+    
+          if (!response.ok) {
+            // throw new Error(`Failed to fetch pic: ${response.statusText}`);
+            <h1>no profile present</h1>
+          }
+                //  console.log("hi welcome to the group");
+          const pic = await response.json();
+          console.log('Fetched pic:', pic);
+          const baseUrl = 'http://localhost:5000/';
+      const imageUrl = `${baseUrl}${pic.profile}`;
+      
+      // Fetch the image file
+      const imageResponse = await fetch(imageUrl);
+      if (!imageResponse.ok) {
+        throw new Error('Failed to fetch image');
+      }
+      console.log("imageresponse",imageResponse);
+      // Convert the response to a Blob
+       const imageBlob = await imageResponse.blob();
+        
+           setFile(imageBlob);
+          console.log("imageblob",imageBlob);
+        
+        } catch (error) {
+          console.error('Error fetching pic:', error.message);
+        }
+      }
       const getIntroduction = async () =>{
         try {
           // console.log("hi welcome");
@@ -160,14 +245,15 @@ function AdminHero(props) {
         <>
         <div id="hero" className='flex flex-col'>
         <h1 className='font-[700] mt-[70px] text-[25px] '>Hero Section</h1>
-            <div  className='w-[1200px] pl-8 h-auto py-10 mt-[50px] shadows rounded-[20px] flex flex-col justify-evenly content-between'>
-                <img src={picture} className='w-[260px] h-[287px] rounded-[20px] mb-6' />   
-   
-                <button className='flex items-center justify-center w-[260px] h-[54px] bg-[#EAFCFF] butt rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF] mb-8'> 
-                <label htmlFor="fileInput"><img src={selectedFile || upload} className='h-[20px] w-[20px] mr-2 ' /></label>
+            <div  className='w-[1200px] pl-8 h-auto py-10 mt-[50px] shadows rounded-[20px] flex flex-col  justify-evenly content-between'>
+               {file && <img src={URL.createObjectURL(file)} className='w-[260px] h-[287px] rounded-[20px] mb-6' />}    
+          <div className='flex items-center'>
+                <label htmlFor="fileInput"><img src={upload} className='h-[20px] w-[20px] mr-2 ' /></label>
                 
-                <input type="file" id="fileInput" style={{display:"none"}} onClick={handleFileChange}  />     
+                <input type="file" id="fileInput" style={{display:"none"}} onChange={e=>setFile(e.target.files[0])} />     
+                <button className='flex items-center justify-center w-[260px] h-[54px] bg-[#EAFCFF] butt rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF] mb-8' onClick={handleFileChange}> 
                  Update Picture</button>     
+          </div>
              
                 <div className='flex w-[60%] justify-between mb-8'>
                     <div className='flex flex-col'>

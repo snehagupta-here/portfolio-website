@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // Define Service Description schema
 const serviceDescriptionSchema = new mongoose.Schema({
-  username: { type: String, required: true, ref: 'User' },
+  // username: { type: String, required: true, ref: 'User' },
   // serviceName: { type: String, required: true },
   description: { type: String, required: true }
 });

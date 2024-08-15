@@ -5,23 +5,28 @@ import axios from "axios";
 export default function ContactForm(props) {
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
-
+const [contact,setContact] = useState(props.contact);
   const handleUpdate = () => {
     console.log("Email:", email);
     setShowModal(false); // Close the modal after updating
     createorupdateemail();
   };
-  async function createorupdateemail(ev){
+  async function createorupdateemail(){
     const data=new FormData();
-    data.set("email",email);
-    ev.preventDefault();
-    const response = await fetch('http://localhost:5000/api/contact/', {
-      method:'POST',
+    data.append("types",contact.types);
+    data.append("ids",contact.ids);
+    const response = await fetch(`http://localhost:5000/api/contact/${props.contact._id}`, {
+      method:'PUT',
       body: data,
-      credentials: "include"
+      // credentials: "include"
     });
     if(response.ok){
-        console.log("email added");
+      const result = await response.json();
+      console.log("updated the email");
+        // console.log("email added");
+        props.setContact((prev) =>
+          prev.map((c) => c._id === props.contact._id ? {...result} : c)
+        )
     }
   }
   
@@ -53,12 +58,20 @@ export default function ContactForm(props) {
               </div>
               <div className="relative p-6 flex-auto">
                 <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed text-black">
-                {props.type}
+                type
                 </h4>
-                <input
-                  type="email"
-                  value={props.id}
-                  onChange={(e) => setEmail(e.target.value)}
+                <input          
+                  value={contact.types}
+                  onChange={(e) => setContact({...contact,types:e.target.value})}
+                  placeholder="Enter your email"
+                  className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mb-4"
+                />
+                <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed text-black">
+                id
+                </h4>
+                <input          
+                  value={contact.ids}
+                  onChange={(e) => setContact({...contact,ids:e.target.value})}
                   placeholder="Enter your email"
                   className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mb-4"
                 />
@@ -69,7 +82,7 @@ export default function ContactForm(props) {
                   type="button"
                   onClick={handleUpdate}
                 >
-                  Add
+                  Update
                 </button>
               </div>
             </div>

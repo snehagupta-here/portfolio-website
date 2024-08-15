@@ -2,37 +2,37 @@ import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faPlus, faPen } from '@fortawesome/free-solid-svg-icons';
-export default function ServiceDetailsForm() {
+export default function ServiceDetailsForm(props) {
   const [showModal, setShowModal] = useState(false);
-  const [serviceName, setServiceName] = useState("");
-  const [photo, setPhoto] = useState(null);
-  const [description, setDescription] = useState("");
-
-  const handleUpdate = () => {
-    console.log("Service Details:", {
-      serviceName,
-      photo,
-      description,
-    });
+   const [testimonial,setTestimonial] = useState({
+    serviceName:"",
+    organizationName:"",
+    photo:"",
+    description:""
+   })
+   const handleUpdate = () => {
+    console.log("Testimonial Details:", testimonial);
     setShowModal(false); // Close the modal after updating
-    testimonialserviceadd()
+    Cnpost();
   };
-  async function testimonialserviceadd(ev){
+  async function Cnpost(){
     const data = new FormData();
-    data.set('serviceName',serviceName);
-    // data.set('organizationName',organizationName);
-    data.set('photo',photo);
-    data.set('description',description);
-    ev.preventDefault();
-    const response = await fetch('http://localhost:5000/api/testimonials/', {
+    data.set('serviceName',testimonial.serviceName);
+    data.set('photo',testimonial.photo);
+    data.set('organizationName',testimonial.organizationName);
+    data.set('description',testimonial.description);
+    const response = await fetch('http://localhost:5000/api/testimonials', {
         method:'POST',
         body: data,
-        credentials: "include"
+        // credentials: "include"
     });
     if(response.ok){
-        console.log("testimonial service added");
+      const result = await response.json();
+        console.log("testimonial added");
+             props.setTestimonial([...props.testimonial,result]);
     }
   }
+
 
   return (
     <>
@@ -65,8 +65,18 @@ export default function ServiceDetailsForm() {
                 </h4>
                 <input
                   type="text"
-                  value={serviceName}
-                  onChange={(e) => setServiceName(e.target.value)}
+                  value={testimonial.serviceName}
+                  onChange={(e) => setTestimonial({...testimonial,serviceName:e.target.value})}
+                  placeholder="Enter service name"
+                  className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mb-4"
+                />
+                 <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed">
+                  Organization Name
+                </h4>
+                <input
+                  type="text"
+                  value={testimonial.organizationName}
+                  onChange={(e) => setTestimonial({...testimonial,organizationName:e.target.value})}
                   placeholder="Enter service name"
                   className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mb-4"
                 />
@@ -75,16 +85,16 @@ export default function ServiceDetailsForm() {
                 </h4>
                 <input
                   type="file"
-                  accept="image/*"
-                  onChange={(e) => setPhoto(e.target.files[0])}
+                  // accept="image/*"
+                  onChange={(e) => setTestimonial({...testimonial,photo:e.target.files[0]})}
                   className="mb-4"
                 />
                 <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed">
                   Description
                 </h4>
                 <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  value={testimonial.description}
+                  onChange={(e) => setTestimonial({...testimonial,description:e.target.value})}
                   placeholder="Enter service description"
                   className="w-full h-32 bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 resize-none"
                 />

@@ -1,5 +1,5 @@
 const express = require('express');
-const connectDB = require('./config/database');
+// const connectDB = require('./config/database');
 const userRoutes = require('./routes/userRoutes');
 const titleRoutes = require('./routes/titleRoutes');
 const introductionRoutes = require('./routes/introductionRoutes');
@@ -18,7 +18,30 @@ const firstnameRoutes = require('./routes/firstnameRoutes');
 const lastnameRoutes = require('./routes/lastnameRoutes');
 const cors = require("cors");
 const app = express();
+const fs = require('fs');
 const multer = require("multer");
+const path = require("path");
+const mongoose = require('mongoose');
+require('dotenv').config();
+
+const dburl = process.env.ATLASDB_URL;
+const connectDB = async () => {
+    try {
+        mongoose.set('strictQuery', true);
+        
+        // const uri = 'mongodb://127.0.0.1:27017/admin';
+       
+        await mongoose.connect(dburl, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        
+        console.log('DB Connected',dburl);
+    } catch (err) {
+        console.error('Error connecting to the database', err);
+    }
+};
+
 // Connect to MongoDB
 connectDB();
 app.use(cors());
@@ -29,10 +52,19 @@ app.use(cors());
 
 // app.use(cors(corsOptions));
 // Middleware to parse JSON bodies
+
+
 app.use(express.json());
 // Configure multer
 const upload = multer();
-// Routes
+const uploadPath = path.join(__dirname, '..', 'uploads', 'profiles');
+
+if (!fs.existsSync(uploadPath)) {
+  fs.mkdirSync(uploadPath, { recursive: true });
+}
+// Rou
+// Serve static files from the "uploads" directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/Hero/users', userRoutes);
 app.use('/api/Hero/titles', titleRoutes);
 app.use('/api/Hero/introduction', introductionRoutes);

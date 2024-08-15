@@ -2,19 +2,25 @@ import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faPlus, faPen } from '@fortawesome/free-solid-svg-icons';
-export default function ProjectDetailsForm() {
+export default function ProjectDetailsForm(props) {
   const [showModal, setShowModal] = useState(false);
   const [projectName, setProjectName] = useState("");
   const [skills, setSkills] = useState([]);
   const [newSkill, setNewSkill] = useState("");
   const [photo, setPhoto] = useState(null);
   const [description, setDescription] = useState("");
-
+   const [project , setProject] = useState({
+    projectname:"",
+    photo:"",
+    skill:[],
+    description:""
+   })
+   const [currentSkill,setCurrentSkill] = useState("");
   const handleAddSkill = () => {
-    if (newSkill.trim() !== "") {
-      setSkills([...skills, newSkill]);
+    if (currentSkill.trim() !== "") {
+      setProject({...project, skill:[...project.skill,currentSkill.trim()]});
       setNewSkill("");
-      addservicework()
+      // addservicework()
     }
   };
   async function addservicework(ev){
@@ -36,20 +42,49 @@ export default function ProjectDetailsForm() {
   }
 
   const handleRemoveSkill = (index) => {
-    const updatedSkills = [...skills];
-    updatedSkills.splice(index, 1);
-    setSkills(updatedSkills);
+    console.log("hiiiii");
+    const newskills = project.skill.filter((_, i) => i !== index);
+    setProject({
+      ...project,
+      skill: newskills
+    });
   };
+  
 
   const handleUpdate = () => {
-    console.log("Project Details:", {
-      projectName,
-      skills,
-      photo,
-      description,
-    });
+    // Additional logic for handling the update
+    addProject();
     setShowModal(false); // Close the modal after updating
   };
+  const addProject = async () => {
+    const formData = new FormData();
+    formData.append('projectname', project.projectname);
+    formData.append('description', project.description);
+    formData.append('photo', project.photo); // Assuming `project.photo` is a File object
+       console.log("formdata",formData);
+    // Append each skill as a separate entry with the same key
+    project.skill.forEach((skill) => formData.append('skill', skill));
+  
+    try {
+      const response = await fetch('http://localhost:5000/api/work/projects/', {
+        method: 'POST',
+        body: formData,
+        // credentials: "include" // Uncomment if needed
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok.');
+      }
+  
+      const result = await response.json();
+      console.log(result);
+      props.setProject([...props.project,result]);
+    } catch (error) {
+      console.error('Error adding project:', error);
+    }
+  };
+  
+  
 
   return (
     <>
@@ -82,8 +117,8 @@ export default function ProjectDetailsForm() {
                 </h4>
                 <input
                   type="text"
-                  value={projectName}
-                  onChange={(e) => setProjectName(e.target.value)}
+                  value={project.projectname}
+                  onChange={(e) => setProject({...project,projectname:e.target.value})}
                   placeholder="Enter project name"
                   className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mb-4"
                 />
@@ -93,20 +128,20 @@ export default function ProjectDetailsForm() {
                 <div className="flex items-center mb-4">
                   <input
                     type="text"
-                    value={newSkill}
-                    onChange={(e) => setNewSkill(e.target.value)}
+                    value={currentSkill}
+                    onChange={(e) => setCurrentSkill(e.target.value)}
                     placeholder="Enter skill"
                     className="w-full bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 mr-2"
                   />
                   <button
-                    className="bg-pink-500 text-white text-sm py-3 px-4 rounded-xl shadow hover:shadow-lg outline-none focus:outline-none"
+                    className="bg-[#006BC2] text-white text-sm py-3 px-4 rounded-xl shadow hover:shadow-lg outline-none focus:outline-none"
                     onClick={handleAddSkill}
                   >
                     Add Skill
                   </button>
                 </div>
                 <div className="flex flex-wrap mb-4">
-                  {skills.map((skill, index) => (
+                  {project.skill.map((skill, index) => (
                     <div
                       key={index}
                       className="bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-2 text-sm text-gray-700 mr-2 mb-2 flex items-center"
@@ -126,16 +161,16 @@ export default function ProjectDetailsForm() {
                 </h4>
                 <input
                   type="file"
-                  accept="image/*"
-                  onChange={(e) => setPhoto(e.target.files[0])}
+                
+                  onChange={(e) => setProject({...project,photo:e.target.files[0]})}
                   className="mb-4"
                 />
                 <h4 className="my-4 text-blueGray-500 text-lg font-bold leading-relaxed">
                   Description
                 </h4>
                 <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  value={project.description}
+                  onChange={(e) => setProject({...project,description:e.target.value})}
                   placeholder="Enter project description"
                   className="w-full h-32 bg-gray-100 border border-[#006BC2] rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500 resize-none"
                 />

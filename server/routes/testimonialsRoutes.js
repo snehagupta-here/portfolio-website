@@ -6,9 +6,12 @@ const TestimonialsController = require('../controllers/testimonialsController');
 router.post('/', TestimonialsController.createWork);
 
 // Route for getting Testimonials by username
-router.get('/:username', TestimonialsController.getTestimonialsByUsername);
+router.get('/', TestimonialsController.getTestimonialsByUsername);
 
 // updateTestimonial
-router.put('/:username', TestimonialsController.updateTestimonial);
+router.put('/:id', TestimonialsController.updateTestimonial);
+
+// deleteTestimonial
+router.delete('/:id', TestimonialsController.deleteTestimonial);
 
 module.exports = router;

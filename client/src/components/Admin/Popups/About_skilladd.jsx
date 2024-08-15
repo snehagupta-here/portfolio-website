@@ -13,6 +13,7 @@ export default function Herosection_skillname(props) {
     await  addskill(ev);
     setShowModal(false); // Close the modal after updating
   };
+  
   const addskill = async (ev) => {
     ev.preventDefault();
     const data = new FormData();
