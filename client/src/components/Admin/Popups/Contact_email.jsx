@@ -15,7 +15,7 @@ const [contact,setContact] = useState(props.contact);
     const data=new FormData();
     data.append("types",contact.types);
     data.append("ids",contact.ids);
-    const response = await fetch(`http://localhost:5000/api/contact/${props.contact._id}`, {
+    const response = await fetch(`https://portfolio-website-48v8.onrender.com/api/contact/${props.contact._id}`, {
       method:'PUT',
       body: data,
       // credentials: "include"

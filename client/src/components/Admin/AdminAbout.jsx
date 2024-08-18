@@ -40,7 +40,7 @@ function AdminAbout() {
     const [file,setFile] = useState(null);
    const getExperience = async () =>{
     try {
-        const response = await fetch('http://localhost:5000/api/About/professional-experience/', {
+        const response = await fetch('https://portfolio-website-48v8.onrender.com/api/About/professional-experience/', {
           method: 'GET'          
         });     
         if (!response.ok) {
@@ -55,7 +55,7 @@ function AdminAbout() {
    }
     const getBio = async () =>{
         try {
-            const response = await fetch('http://localhost:5000/api/About/bio/bio', {
+            const response = await fetch('https://portfolio-website-48v8.onrender.com/api/About/bio/bio', {
               method: 'GET'          
             });     
             if (!response.ok) {
@@ -71,7 +71,7 @@ function AdminAbout() {
     const getAchievement = async () =>{
         try {
              console.log("hi welcome");
-            const response = await fetch('http://localhost:5000/api/About/achievement/achievement', {
+            const response = await fetch('https://portfolio-website-48v8.onrender.com/api/About/achievement/achievement', {
               method: 'GET'          
             });
       
@@ -101,7 +101,7 @@ function AdminAbout() {
           // const data =new FormData();
           // data.set('titleId',id);
           // data.set('username',username);
-          const response = await fetch(`http://localhost:5000/api/About/skills/remove/${id}`, {//function to be defined
+          const response = await fetch(`https://portfolio-website-48v8.onrender.com/api/About/skills/remove/${id}`, {//function to be defined
               method:'DELETE'       
           });
           console.log(response);
@@ -114,7 +114,7 @@ function AdminAbout() {
       };
     const getAllSkill = async () => {
         try {
-          const response = await fetch('http://localhost:5000/api/About/skills', {
+          const response = await fetch('https://portfolio-website-48v8.onrender.com/api/About/skills', {
             method: 'GET',               
           });
     
@@ -137,7 +137,7 @@ function AdminAbout() {
           // const data =new FormData();
           // data.set('titleId',id);
           // data.set('username',username);
-          const response = await fetch(`http://localhost:5000/api/About/professional-experience/remove/${id}`, {//function to be defined
+          const response = await fetch(`https://portfolio-website-48v8.onrender.com/api/About/professional-experience/remove/${id}`, {//function to be defined
               method:'DELETE'       
           });
           console.log(response);

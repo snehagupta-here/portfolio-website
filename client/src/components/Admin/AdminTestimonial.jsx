@@ -17,7 +17,7 @@ function AdminTestimonial() {
     },[])
     const getTestimonial = async () =>{
       try {
-          const response = await fetch('http://localhost:5000/api/testimonials', {
+          const response = await fetch('https://portfolio-website-48v8.onrender.com/api/testimonials', {
             method: 'GET'          
           });     
           if (!response.ok) {
@@ -31,7 +31,7 @@ function AdminTestimonial() {
         }
   }
   const handleDelete = async (id) =>{
-    const response = await fetch(`http://localhost:5000/api/testimonials/${id}`, {//function to be defined
+    const response = await fetch(`https://portfolio-website-48v8.onrender.com/api/testimonials/${id}`, {//function to be defined
       method:'DELETE'       
   });
   console.log(response);
@@ -65,7 +65,7 @@ function AdminTestimonial() {
                     </div>
                     <h2 className='text-[13px] font-[400] text-[#565656] mb-5'>{testimonial.organizationName}</h2>
                     <div className='flex flex-col md:flex-row'>
-                        <img src={`http://localhost:5000/${testimonial.photo}`} className='w-[200px] h-[200px] mx-auto mb-8 md:mx-0 md:mb-0 rounded-[20px]' />
+                        <img src={`https://portfolio-website-48v8.onrender.com/${testimonial.photo}`} className='w-[200px] h-[200px] mx-auto mb-8 md:mx-0 md:mb-0 rounded-[20px]' />
                         <h1 className='w-auto mr-4 md:mr-0 h-auto ml-4 text-[15px] leading-[24px]'>{testimonial.description}</h1>
                     </div>
                     {/* <button className='flex font-[600] items-center justify-center w-[200px] h-[50px] bg-[#EAFCFF] rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF]'> 

@@ -19,7 +19,7 @@ export default function Herosection_skillname(props) {
     const data = new FormData();
     data.set('skill',skill);
     console.log(data);
-    const response = await fetch('http://localhost:5000/api/About/skills/create', {
+    const response = await fetch('https://portfolio-website-48v8.onrender.com/api/About/skills/create', {
         method:'POST',
         // headers:{
         //   'Content-Type':'application/json',

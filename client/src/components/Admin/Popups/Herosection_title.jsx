@@ -22,7 +22,7 @@ export default function Herosection_title(props) {
     const data = { title };
     console.log("Sending updated title:", title);
     console.log("Title ID:", props.title._id);   
-    const response = await fetch(`http://localhost:5000/api/Hero/titles/edit/${props.title._id}`, {
+    const response = await fetch(`https://portfolio-website-48v8.onrender.com/api/Hero/titles/edit/${props.title._id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

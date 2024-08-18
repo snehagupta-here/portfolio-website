@@ -27,7 +27,7 @@ export default function Herosection_skillname(props) {
         location:experience.isRemote? null : experience.location
       };
       // console.log(data);
-      const response = await fetch('http://localhost:5000/api/About/professional-experience/', {
+      const response = await fetch('https://portfolio-website-48v8.onrender.com/api/About/professional-experience/', {
           method:'POST',
           headers:{
             'Content-Type':'application/json',

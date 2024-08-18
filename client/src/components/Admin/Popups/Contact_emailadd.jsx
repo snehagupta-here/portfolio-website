@@ -23,7 +23,7 @@ export default function ContactForm(props) {
     data.append("types",contact.types);
     data.append("ids",contact.ids);
     console.log(data);
-    const response = await fetch('http://localhost:5000/api/contact/', {
+    const response = await fetch('https://portfolio-website-48v8.onrender.com/api/contact/', {
       method:'POST',
      body:data
     });

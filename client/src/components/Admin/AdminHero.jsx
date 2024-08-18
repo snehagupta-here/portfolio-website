@@ -44,7 +44,7 @@ function AdminHero(props) {
         // const data =new FormData();
         // data.set('titleId',id);
         // data.set('username',username);
-        const response = await fetch(`http://localhost:5000/api/Hero/titles/remove/${id}`, {//function to be defined
+        const response = await fetch(`https://portfolio-website-48v8.onrender.com/api/Hero/titles/remove/${id}`, {//function to be defined
             method:'DELETE'       
         });
         console.log(response);
@@ -98,7 +98,7 @@ function AdminHero(props) {
         // formData.append('username', 'your-username'); // Replace with the actual username or another identifier
   
         try {
-          const response = await fetch(`http://localhost:5000/api/Hero/profilepic`, {
+          const response = await fetch(`https://portfolio-website-48v8.onrender.com/api/Hero/profilepic`, {
             method: 'PUT',
             body: formData,
           });
@@ -141,7 +141,7 @@ function AdminHero(props) {
         
         try {
           console.log("hi welcome");
-          const response = await fetch('http://localhost:5000/api/Hero/profilepic/profile', {
+          const response = await fetch('https://portfolio-website-48v8.onrender.com/api/Hero/profilepic/profile', {
             method: 'GET'          
           });
     
@@ -152,7 +152,7 @@ function AdminHero(props) {
                 //  console.log("hi welcome to the group");
           const pic = await response.json();
           console.log('Fetched pic:', pic);
-          const baseUrl = 'http://localhost:5000/';
+          const baseUrl = 'https://portfolio-website-48v8.onrender.com/';
       const imageUrl = `${baseUrl}${pic.profile}`;
       
       // Fetch the image file
@@ -174,7 +174,7 @@ function AdminHero(props) {
       const getIntroduction = async () =>{
         try {
           // console.log("hi welcome");
-          const response = await fetch('http://localhost:5000/api/Hero/introduction/getintroduction', {
+          const response = await fetch('https://portfolio-website-48v8.onrender.com/api/Hero/introduction/getintroduction', {
             method: 'GET'          
           });
     
@@ -200,7 +200,7 @@ function AdminHero(props) {
       }
       const getUser = async () =>{
         try {
-          const response = await fetch('http://localhost:5000/api/Hero/firstname/getUser', {
+          const response = await fetch('https://portfolio-website-48v8.onrender.com/api/Hero/firstname/getUser', {
             method: 'GET'          
           });
     
@@ -224,7 +224,7 @@ function AdminHero(props) {
       }
       const getAllTitle = async () => {
         try {
-          const response = await fetch('http://localhost:5000/api/Hero/titles/allTitles', {
+          const response = await fetch('https://portfolio-website-48v8.onrender.com/api/Hero/titles/allTitles', {
             method: 'GET',               
           });
     

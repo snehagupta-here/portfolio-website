@@ -18,7 +18,7 @@ export default function Herosection_title(props) {
     // data.set('bio',bio);
     const data = {bio};
     // ev.preventDefault();
-    const response = await fetch('http://localhost:5000/api/About/bio/', {
+    const response = await fetch('https://portfolio-website-48v8.onrender.com/api/About/bio/', {
         method:'PUT',
         headers: {
           'Content-Type': 'application/json'

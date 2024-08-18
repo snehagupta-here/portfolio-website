@@ -66,7 +66,7 @@ export default function ProjectDetailsForm(props) {
     project.skill.forEach((skill) => formData.append('skill', skill));
   
     try {
-      const response = await fetch('http://localhost:5000/api/work/projects/', {
+      const response = await fetch('https://portfolio-website-48v8.onrender.com/api/work/projects/', {
         method: 'POST',
         body: formData,
         // credentials: "include" // Uncomment if needed

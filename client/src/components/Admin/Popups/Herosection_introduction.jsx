@@ -13,7 +13,7 @@ export default function Herosection_title(props) {
   };
   async function Cnpost(){
    const data =  {introduction}
-    const response = await fetch('http://localhost:5000/api/Hero/introduction/updateintroduction', {
+    const response = await fetch('https://portfolio-website-48v8.onrender.com/api/Hero/introduction/updateintroduction', {
         method:'PUT',
         headers: {
           'Content-Type': 'application/json'

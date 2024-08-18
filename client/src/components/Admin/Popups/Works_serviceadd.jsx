@@ -23,7 +23,7 @@ const [service,setService] = useState({
     data.set('photo',service.photo);
     console.log("description",service.description);
     data.set('description',service.description);
-    const response = await fetch('http://localhost:5000/api/Services/works', {
+    const response = await fetch('https://portfolio-website-48v8.onrender.com/api/Services/works', {
         method:'POST',
         body: data,
         // credentials: "include"

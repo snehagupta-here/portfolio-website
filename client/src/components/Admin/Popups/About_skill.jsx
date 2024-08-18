@@ -21,7 +21,7 @@ export default function Herosection_skillname(props) {
     const data = { skill };
     console.log("Sending updated skill:", skill);
     console.log("Skill ID:", props.skill._id);   
-    const response = await fetch(`http://localhost:5000/api/About/skills/edit/${props.skill._id}`, {
+    const response = await fetch(`https://portfolio-website-48v8.onrender.com/api/About/skills/edit/${props.skill._id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

@@ -21,7 +21,7 @@ function AdminService() {
     },[])
     const getService = async () =>{
       try {
-          const response = await fetch('http://localhost:5000/api/Services/works', {
+          const response = await fetch('https://portfolio-website-48v8.onrender.com/api/Services/works', {
             method: 'GET'          
           });     
           if (!response.ok) {
@@ -36,7 +36,7 @@ function AdminService() {
   }
     const getDescription = async () =>{
       try {
-          const response = await fetch('http://localhost:5000/api/Services/service-description/', {
+          const response = await fetch('https://portfolio-website-48v8.onrender.com/api/Services/service-description/', {
             method: 'GET'          
           });     
           if (!response.ok) {
@@ -50,7 +50,7 @@ function AdminService() {
         }
   }
   const handleDelete = async (id) =>{
-    const response = await fetch(`http://localhost:5000/api/Services/works/${id}`, {//function to be defined
+    const response = await fetch(`https://portfolio-website-48v8.onrender.com/api/Services/works/${id}`, {//function to be defined
       method:'DELETE'       
   });
   console.log(response);

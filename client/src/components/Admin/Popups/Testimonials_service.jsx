@@ -16,7 +16,7 @@ export default function ServiceDetailsForm(props) {
     data.set('description',testimonial.description);
     data.set("organizationName",testimonial.organizationName);
     // ev.preventDefault();
-    const response = await fetch(`http://localhost:5000/api/testimonials/${testimonial._id}`, {
+    const response = await fetch(`https://portfolio-website-48v8.onrender.com/api/testimonials/${testimonial._id}`, {
         method:'PUT',
         body: data,
         // credentials: "include"

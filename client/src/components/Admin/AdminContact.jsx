@@ -15,7 +15,7 @@ function AdminContact() {
   const [contact,setContact] = useState([]);
 
   const handleDelete = async (id) =>{
-    const response = await fetch(`http://localhost:5000/api/contact/${id}`, {//function to be defined
+    const response = await fetch(`https://portfolio-website-48v8.onrender.com/api/contact/${id}`, {//function to be defined
         method:'DELETE'       
     });
     console.log(response);
@@ -29,7 +29,7 @@ function AdminContact() {
 
   const getContact = async () =>{
     try {
-        const response = await fetch('http://localhost:5000/api/contact/', {
+        const response = await fetch('https://portfolio-website-48v8.onrender.com/api/contact/', {
           method: 'GET'          
         });     
         if (!response.ok) {

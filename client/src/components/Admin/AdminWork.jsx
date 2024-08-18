@@ -27,7 +27,7 @@ function AdminWork() {
     },[])
    
     const handleDelete = async (id) =>{
-        const response = await fetch(`http://localhost:5000/api/work/projects/${id}`, {//function to be defined
+        const response = await fetch(`https://portfolio-website-48v8.onrender.com/api/work/projects/${id}`, {//function to be defined
             method:'DELETE'       
         });
         console.log(response);
@@ -40,7 +40,7 @@ function AdminWork() {
     }
     const getProject = async () =>{
         try {
-            const response = await fetch('http://localhost:5000/api/work/projects/', {
+            const response = await fetch('https://portfolio-website-48v8.onrender.com/api/work/projects/', {
               method: 'GET'          
             });     
             if (!response.ok) {
@@ -89,7 +89,7 @@ function AdminWork() {
                        </div>
                     <div className='flex flex-col-reverse md:flex-row md:justify-between'>
                         <p className='text-[15px] mt-8 md:mt-0 font-[400] w-auto leading-[24px] mr-2'>{project.description}</p>
-                       {project.photo && <img  src={`http://localhost:5000/${project.photo}`} className='w-[230px] h-[150px] rounded-[20px]' />} 
+                       {project.photo && <img  src={`https://portfolio-website-48v8.onrender.com/${project.photo}`} className='w-[230px] h-[150px] rounded-[20px]' />} 
                     </div>
                 </div>
                 );

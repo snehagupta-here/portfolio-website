@@ -17,7 +17,7 @@ export default function Herosection_titleadd(props) {
     const data = new FormData();
     data.set('title',title);
     console.log(data);
-    const response = await fetch('http://localhost:5000/api/Hero/titles/create', {
+    const response = await fetch('https://portfolio-website-48v8.onrender.com/api/Hero/titles/create', {
         method:'POST',
         // headers:{
         //   'Content-Type':'application/json',

@@ -21,7 +21,7 @@ export default function ServiceDetailsForm(props) {
     data.set('photo',testimonial.photo);
     data.set('organizationName',testimonial.organizationName);
     data.set('description',testimonial.description);
-    const response = await fetch('http://localhost:5000/api/testimonials', {
+    const response = await fetch('https://portfolio-website-48v8.onrender.com/api/testimonials', {
         method:'POST',
         body: data,
         // credentials: "include"

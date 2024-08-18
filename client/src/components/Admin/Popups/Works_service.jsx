@@ -23,7 +23,7 @@ const [file,setFile] = useState(null);
     // console.log("description",service.description);
     // Function to handle the file setting
    
-    const response = await fetch(`http://localhost:5000/api/Services/works/${props.service._id}`, {
+    const response = await fetch(`https://portfolio-website-48v8.onrender.com/api/Services/works/${props.service._id}`, {
         method:'PUT',
         body: data,
         // credentials: "include"

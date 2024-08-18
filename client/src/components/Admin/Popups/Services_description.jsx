@@ -15,7 +15,7 @@ useEffect(()=>{
   async function updatedescription(ev){
    const data = {description}
     // ev.preventDefault();
-    const response = await fetch('http://localhost:5000/api/Services/service-description/', {
+    const response = await fetch('https://portfolio-website-48v8.onrender.com/api/Services/service-description/', {
         method:'PUT',
         headers: {
           'Content-Type': 'application/json'
