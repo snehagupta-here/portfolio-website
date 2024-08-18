@@ -18,7 +18,7 @@ export default function Herosection_firstname(props) {
     // data.set('firstName',firstname);
     console.log("sending firstname",firstname);
     // ev.preventDefault();
-    const response = await fetch('http://localhost:5000/api/Hero/firstname/updatefirstname', {//function to be defined
+    const response = await fetch('https://portfolio-website-48v8.onrender.com/api/Hero/firstname/updatefirstname', {//function to be defined
         method:'PUT',     
         headers: {
           'Content-Type': 'application/json',
