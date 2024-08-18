@@ -23,17 +23,17 @@
         margin-left: 7px;
         margin-bottom: 10px;
     }
-    /* .navList{
+    .navList{
         position:fixed;
         width:100%;
         height: 100vh;
         background:#bab8ff;
         top:80px;
-        left:-100rem;
+        left:-100vw;
         text-align: center;
         transition: all .5s;
         z-index: 99;
-    } */
+    }
     .navListItem{
         display: block;
         margin: 50px 0;

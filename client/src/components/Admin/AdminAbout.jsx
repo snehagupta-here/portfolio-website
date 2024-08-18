@@ -153,16 +153,16 @@ function AdminAbout() {
       }
   return (
  <>
- <div id="about" className='flex flex-col'>
+ <div id="about" className='flex flex-col w-[80%] xl:w-[70%]'>
       <h1 className='font-[700] mt-[70px] text-[25px] '>About</h1>
-  <div  className='w-[1200px] pl-8  pt-8 h-auto pb-16 shadows mt-[50px]  rounded-[20px] content-evenly flex flex-col '>
+  <div  className=' px-8 sm:px-16 pt-8 h-auto pb-16 shadows mt-[50px]  rounded-[20px] content-evenly flex flex-col '>
   <div className='flex flex-col content-evenly '>
     <div className='flex justify-between'>
                     <h1 className='leading-[24px] font-[600] text-[15px] mb-3'>Bio</h1>
                     {/* <img src={pen1}  className='w-[22px] h-[22px] inline mr-16' /> */}
                     <About_bio bio={bio} setBio={setBio}/>
     </div>
-                    <div className='w-[1100px] h-[126px] rounded-[10px] border-[#ACACAC] border-[1px] font-[400] text-[15px] p-4'>{bio}</div>      
+                    <div className='w-[99%] min-h-[100px] h-auto rounded-[10px] border-[#ACACAC] border-[1px] font-[400] text-[15px] p-4'>{bio}</div>      
                     {/* { bio.description} */}
                 </div>
                 <div className='flex flex-col mt-8'>
@@ -191,7 +191,7 @@ function AdminAbout() {
           {experience.map((experience,index)=>{
             return (
 
-        <div className='flex flex-col w-[1100px] h-auto mb-5  border-[1px] border-[#ACACAC] rounded-[10px] p-5'>
+        <div className='flex flex-col w-auto h-auto mb-5  border-[1px] border-[#ACACAC] rounded-[10px] p-5'>
 
             <div className='flex flex-col'>
                 <div className='flex w-full justify-between'>
@@ -236,33 +236,33 @@ function AdminAbout() {
         {/* <img src={pen1} className='w-[22px] h-[22px]   text-[black] mr-16' /> */}
         <About_achievement achievement={achievement} setAchievement={setAchievement} />
         </div>
-        <div className='w-[1100px] h-[126px] rounded-[10px] border-[#ACACAC] border-[1px] font-[400] text-[15px] p-4'>{achievement}</div>
+        <div className='w-[99%] min-h-[100px] h-auto rounded-[10px] border-[#ACACAC] border-[1px] font-[400] text-[15px] p-4'>{achievement}</div>
         </div> 
         <div className='flex flex-col'>
          <h1 className='text-[15px] font-[600] mt-8 mb-3'>Resume</h1>
-         <div className='w-[1100px] justify-between mb-5 items-center flex h-[70px] border-[1px] rounded-[10px] border-[#ACACAC] '>
+         <div className='w-[99%] justify-between mb-5 items-center flex h-[70px] border-[1px] rounded-[10px] border-[#ACACAC] '>
             <div className='w-full flex items-center'>
             <div className='w-[100px] flex items-center justify-center h-[70px] rounded-l-[10px] bg-[#006BC2] text-white '>PDF</div>
             <div className='flex flex-col content-center ml-4'>
-          <h1 className='text-[15px] font-[400]'>Resume Name</h1>
-          <h1 className='text-[#727272] text-[14px] font-[400]'>Uploaded on 01/01/2024</h1>
+          <h1 className='text-[13px] md:text-[15px] font-[400]'>Resume Name</h1>
+          <h1 className='text-[#727272] text-[1] text-[12px] md:text-[14px] font-[400]'>Uploaded on 01/01/2024</h1>
             </div>
             </div>
             <div className='flex justify-end'>
-           <img src={up} className='w-[28px] h-[28px] mr-3' />
+           <img src={up} className='w-[20px] h-[20px] md:w-[28px] md:h-[28px] mr-1 md:mr-3' />
            <input type="checkbox" checked className='w-[28px] h-[28px] mr-3' />
             </div>
          </div>
-         <div className='w-[1100px] justify-between items-center flex h-[70px] border-[1px] rounded-[10px] border-[#ACACAC] '>
+         <div className='w-[99%] justify-between items-center flex h-[70px] border-[1px] rounded-[10px] border-[#ACACAC] '>
             <div className='w-full flex items-center'>
             <div className='w-[100px] flex items-center justify-center h-[70px] rounded-l-[10px] bg-[#006BC2] text-white '>PDF</div>
             <div className='flex flex-col content-center ml-4'>
-          <h1 className='text-[15px] font-[400]'>Resume Name</h1>
-          <h1 className='text-[#727272] text-[14px] font-[400]'>Uploaded on 01/01/2024</h1>
+          <h1 className='text-[13px] md:text-[15px] font-[400]'>Resume Name</h1>
+          <h1 className='text-[#727272] text-[12px] md:text-[14px] font-[400]'>Uploaded on 01/01/2024</h1>
             </div>
             </div>
             <div className='flex justify-end'>
-           <img src={up} className='w-[28px] h-[28px] mr-3' />
+           <img src={up} className='w-[20px] h-[20px] md:w-[28px] md:h-[28px] mr-1 md:mr-3' />
            <input type="checkbox" className='w-[28px] h-[28px] mr-3' />
             </div>
          </div>
@@ -270,7 +270,7 @@ function AdminAbout() {
 
             {file && <img src={URL.createObjectURL(file)} className='w-[260px] h-[287px] rounded-[20px] mb-6' />}    
           <div className='flex items-center'>
-                <label htmlFor="fileInput"><img src={upload} className='h-[20px] w-[20px] mr-2 ' /></label>
+                <label htmlFor="fileInput"><img src={upload} className='h-[17px] w-[17px] sm:h-[20px] sm:w-[20px] mr-2 ' /></label>
                 
                 <input type="file" id="fileInput" style={{display:"none"}} onChange={e=>setFile(e.target.files[0])} />     
                 <button className='flex items-center justify-center w-[260px] h-[54px] bg-[#EAFCFF] butt rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF] mb-8' onClick={handleFileChange}> 

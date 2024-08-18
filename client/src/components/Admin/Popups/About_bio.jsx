@@ -43,7 +43,7 @@ export default function Herosection_title(props) {
       >
         Update Bio
       </button> */}
-      <img onClick={()=>setShowModal(true)} src={pen1} className="h-[22px] w-[22px] mr-16" />
+      <img onClick={()=>setShowModal(true)} src={pen1} className="h-[22px] w-[22px]" />
       {showModal && (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <div className="relative w-[1000px] rounded-[20px] my-6 mx-auto max-w-3xl">

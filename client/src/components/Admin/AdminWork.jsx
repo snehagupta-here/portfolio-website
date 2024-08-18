@@ -55,28 +55,31 @@ function AdminWork() {
     }
   return (
     <>
-    <div id="work" className='flex flex-col'>
+    <div id="work" className='flex flex-col w-[80%] xl:w-[70%]'>
        <h1 className='font-[700] mt-[70px] text-[25px] '>Work</h1>
-    <div className='shadows rounded-[20px] w-[1200px] h-auto py-8 mt-[50px]  flex flex-col justify-evenly items-center' >
-        <h1 className='leading-[24px] font-[600] text-[15px]  ml-[50px] self-start mb-4'>Projects</h1>     
+    <div className='shadows rounded-[20px] w-[99%] h-auto py-8 px-8 sm:px-16 mt-[50px]  flex flex-col justify-evenly items-center' >
+        <div className='w-[100%]'>
+
+        <h1 className=' font-[600] text-[15px] mb-4'>Projects</h1>     
+        </div>
             {project.map((project,index)=>{
                 return (
-                    <div className='flex flex-col w-[1100px] mb-8  h-[248px] border-[1px] border-[#ACACAC] rounded-[10px] p-5'>
+                    <div className='flex flex-col w-[99%] mb-8  h-auto border-[1px] border-[#ACACAC] rounded-[10px] p-5'>
                     <div className='flex flex-col'>
                         <div className='flex w-full justify-between'>
                         <h1 className='font-[500] text-[15px] '>{project.projectname}</h1>
                     <div className='flex  '>
                     {/* <img src={pen1} className='w-[22px] h-[22px] mr-2' /> */}
                     <Works_project project={project} setProject={setProject} />
-                    
+                     
                             {/* <FontAwesomeIcon icon={faCircleXmark} className='mr-2  justify-self-end' /> */}
                             <img src={xmark1} onClick={()=>{handleDelete(project._id)}} className='w-[22px] h-[22px]' />
                     </div>
                         </div>
-                        <ul className='flex mb-3 text-[13px] list-disc justify-evenly w-[228px]'>
+                        <ul className='flex mb-3 text-[13px] list-disc justify-evenly w-auto flex flex-col  sm:flex-row sm:justify-start flex-wrap'>
                             {project.skill.map((skill)=>{
                                    return(
-                                       <li className='mr-2'>{skill}</li> 
+                                       <li className='sm:ml-8'>{skill}</li> 
                                    )
                             })}
                             {/* <li className='mr-2'>Skill2</li>
@@ -84,8 +87,8 @@ function AdminWork() {
                             <li className='mr-2'>Skill4</li>   */}
                         </ul>
                        </div>
-                    <div className='flex'>
-                        <p className='text-[15px] font-[400] w-[820px] leading-[24px] mr-2'>{project.description}</p>
+                    <div className='flex flex-col-reverse md:flex-row md:justify-between'>
+                        <p className='text-[15px] mt-8 md:mt-0 font-[400] w-auto leading-[24px] mr-2'>{project.description}</p>
                        {project.photo && <img  src={`http://localhost:5000/${project.photo}`} className='w-[230px] h-[150px] rounded-[20px]' />} 
                     </div>
                 </div>

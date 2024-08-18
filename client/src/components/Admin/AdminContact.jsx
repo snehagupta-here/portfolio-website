@@ -44,9 +44,9 @@ function AdminContact() {
 }
   return (
     <>
-    <div  id="contact" className='flex flex-col'>
+    <div  id="contact" className='flex flex-col w-[80%] xl:w-[70%] mb-16'>
     <h1 className='font-[700] mt-[70px] text-[25px] '>Contact</h1>
-      <div  className='w-[1200px] h-auto py-8 shadows mt-[50px] px-12  rounded-[20px] flex flex-col justify-evenly '>
+      <div  className='w-[99%] h-auto py-8 shadows mt-[50px] px-12  rounded-[20px] flex flex-col justify-evenly '>
       <div className='flex flex-col mb-6'>
                 
                     {/* <div className='flex flex-wrap mt-4'>
@@ -67,12 +67,12 @@ function AdminContact() {
                   <Contact_email title={title} setTitle={setTitle} />
                     </div> */}
                 </div>
-        <div className='flex  flex-wrap '>     
+        <div className='flex  flex-wrap w-[100%]'>     
         {contact.map((contact,index)=>{ 
           return (
-            <div className='ml-3 mr-3'>
+            <div className='ml-3 mr-3 w-[100%] lg:w-[30%]'>
               <h1 className='text-[15px] font-[600]'>{contact.types}</h1>
-              <div className='flex h-[54px] w-[333px] bg-[#006BC2]  mb-3 pt-3 pl-3 text-white rounded-[10px] justify-between'>
+              <div className='flex h-[54px] w-[99%] sm:max-w-[333px] bg-[#006BC2]  mb-3 pt-3 pl-3 text-white text-[14px] sm:text-[16px] rounded-[10px] justify-between'>
                  <h1>{contact.ids}</h1>
                  <div className='flex'>
                  {/* <img src={pen} className='w-[22px] h-[22px] inline ml-24 mr-2' /> */}

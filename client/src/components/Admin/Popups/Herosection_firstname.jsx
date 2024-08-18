@@ -45,7 +45,7 @@ export default function Herosection_firstname(props) {
       >
         firstname_update */}
       {/* </button> */}
-      <img src={pen1}   onClick={() => setShowModal(true)} className='w-[22px] h-[22px] inline mr-2' />
+      <img src={pen1}   onClick={() => setShowModal(true)} className='w-[22px] h-[22px] inline' />
       {showModal && (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <div className="relative w-[1000px] rounded-[20px] my-6 mx-auto max-w-3xl">

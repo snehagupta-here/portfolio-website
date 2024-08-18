@@ -243,50 +243,49 @@ function AdminHero(props) {
       };
     return (
         <>
-        <div id="hero" className='flex flex-col'>
+        <div id="hero" className='flex flex-col w-[80%]  xl:w-[70%] '>
         <h1 className='font-[700] mt-[70px] text-[25px] '>Hero Section</h1>
-            <div  className='w-[1200px] pl-8 h-auto py-10 mt-[50px] shadows rounded-[20px] flex flex-col  justify-evenly content-between'>
+            <div  className='w-auto w-[100%]    pl-8 px-8 sm:px-16 h-auto py-10 mt-[50px] shadows rounded-[20px] flex flex-col  justify-evenly content-between'>
                {file && <img src={URL.createObjectURL(file)} className='w-[260px] h-[287px] rounded-[20px] mb-6' />}    
           <div className='flex items-center'>
                 <label htmlFor="fileInput"><img src={upload} className='h-[20px] w-[20px] mr-2 ' /></label>
                 
                 <input type="file" id="fileInput" style={{display:"none"}} onChange={e=>setFile(e.target.files[0])} />     
-                <button className='flex items-center justify-center w-[260px] h-[54px] bg-[#EAFCFF] butt rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF] mb-8' onClick={handleFileChange}> 
+                <button className='flex items-center justify-center w-[260px] ml-4 sm:ml-0 h-[54px] bg-[#EAFCFF] butt rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF] mb-8' onClick={handleFileChange}> 
                  Update Picture</button>     
-          </div>
-             
-                <div className='flex w-[60%] justify-between mb-8'>
-                    <div className='flex flex-col'>
-                        <div className='flex justify-between'>
+          </div>       
+                <div className='flex w-[80%] flex-wrap justify-between  mb-8 '>
+                    <div className='flex flex-col w-[100%] md:w-[35%]'>
+                        <div className='flex w-[100%] justify-between'>
                         <h1 className='text-[15px] font-[600] mb-2'>First Name</h1>
                         <Herosection_firstname firstname={firstname} setFirstname={setFirstname} />
-                        
+                
                           {/* {props.modal && <Herosection_firstname modal={props.modal} toggle={props.togglemodal} setModal={props.setmodal} />}  */}
                         </div>
-                        <div className='w-[333px] h-[50px] border-[1px] border-[#ACACAC] rounded-[10px] p-3'>{firstname}</div>
+                        <div className='w-auto w-[100%] md:min-w-[230px] lg:min-w-[330px] h-[50px] border-[1px] border-[#ACACAC] rounded-[10px] p-3'>{firstname}</div>
                     </div>
-                    <div className='flex flex-col'>
-                        <div className='flex justify-between'>
+                    <div className='flex flex-col w-[100%] mt-8 md:w-[35%] md:mt-0'>
+                        <div className='flex w-[100%] justify-between'>
 
                         <h1 className='text-[15px] font-[600] mb-2'>Last Name</h1>
                   
                       <Herosection_lastname lastname={lastname} setLastname={setLastname} />
                         </div>
-                        <div className='w-[333px] h-[50px] border-[1px] border-[#ACACAC] rounded-[10px] p-3'>{lastname}</div>
+                        <div className='w-auto w-[80%] md:min-w-[230px] lg:min-w-[330px] h-[50px] border-[1px] border-[#ACACAC] rounded-[10px] p-3'>{lastname}</div>
                     </div>
                 </div>
-                <div className='flex flex-col mb-6'>
+                <div className='flex flex-col mb-6 '>
                     <h1 className='font-[600] text-[15px]'>Titles</h1>
                     <div className='flex flex-wrap mt-4'>
                         {title.map((title,index)=>{
                             return(
-                    <div className='h-[54px] w-[333px]  bg-[#006BC2] mr-4 mb-4 flex pt-3 pl-3 text-white rounded-[10px]'>
-                        <div className='flex w-full'>
-                        <h1 className='text-[15px] w-[252px] w-[4/5]'>{title.title}</h1>
+                    <div className='h-auto min-h-[54px] w-auto bg-[#006BC2] mr-4 mb-4 flex pt-3 pl-3 text-white rounded-[10px]'>
+                        <div className='flex w-full flex-wrap'>
+                        <h1 className='text-[13px] sm:text-[15px] w-auto min-w-[100%] sm:min-w-[230px]'>{title.title}</h1>
                         <div className='flex  justify-end  mr-[2]'>
                            
                       <Herosection_title title={title} setTitle={setTitle}/>
-                            <img src={xmark} className='w-[22px] h-[22px] inline mr-2' onClick={()=>{deletetitle(title._id)}}/>
+                            <img src={xmark} className='w-[18px] h-[18px] sm:w-[22px] sm:h-[22px] inline mr-2' onClick={()=>{deletetitle(title._id)}}/>
                         </div>
                         </div>
                         </div>
@@ -302,7 +301,7 @@ function AdminHero(props) {
                     <Herosection_introduction introduction={introduction} setIntroduction={setIntroduction} />
                    
                     </div>
-                     <div className='w-[1100px] h-[126px] rounded-[10px] border-[#ACACAC] border-[1px] font-[400] text-[15px] p-4'>{introduction}</div>
+                     <div className='w-[99%] h-auto min-h-[100px] rounded-[10px] border-[#ACACAC] border-[1px] font-[400] text-[15px] p-4'>{introduction}</div>
                  
                 </div>
             </div>

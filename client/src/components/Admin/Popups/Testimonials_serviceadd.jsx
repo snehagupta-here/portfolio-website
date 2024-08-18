@@ -43,7 +43,7 @@ export default function ServiceDetailsForm(props) {
       >
         Testimonials
       </button> */}
-       <button className='flex items-center justify-center w-[323px] ml-[55px] h-[54px] bg-[#EAFCFF] rounded-[10px] border-[1px] font-[600] border-[#1395DF] border-dashed text-[#1395DF]' onClick={()=>{setShowModal(true)}}> <FontAwesomeIcon icon={faPlus} className='mr-2' /> Add Testimonial</button>
+       <button className='flex items-center justify-center w-[90%] mx-auto sm:max-w-[323px] h-[54px] bg-[#EAFCFF] rounded-[10px] border-[1px] font-[600] border-[#1395DF] border-dashed text-[#1395DF]' onClick={()=>{setShowModal(true)}}> <FontAwesomeIcon icon={faPlus} className='mr-2' /> Add Testimonial</button>
       {showModal && (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <div className="relative w-auto my-6 mx-auto max-w-3xl">

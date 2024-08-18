@@ -25,14 +25,14 @@ function AdminHomePage() {
     <div>
         <AdminNavbar modal={modal} setmodal={setmodal} togglemodal ={toggleModal}  />
         <Create_heading/> 
-        <div className='flex flex-col items-center justify-evenly'>
+        <div className='flex flex-col items-center justify-evenly overflow-x-hidden flex-wrap'>
         <AdminHero modal={modal} setmodal={setmodal} togglemodal ={toggleModal}  />
         <AdminAbout modal={modal} setmodal={setmodal} togglemodal ={toggleModal}  />
         <AdminWork modal={modal} setmodal={setmodal} togglemodal ={toggleModal} />
         <AdminService modal={modal} setmodal={setmodal} togglemodal ={toggleModal}  />
         <AdminTestimonial modal={modal} setmodal={setmodal} togglemodal ={toggleModal}  />
         <AdminContact modal={modal} setmodal={setmodal} togglemodal ={toggleModal}  />
-        <AdminCreate modal={modal} setmodal={setmodal} togglemodal ={toggleModal}  />
+        {/* <AdminCreate modal={modal} setmodal={setmodal} togglemodal ={toggleModal}  /> */}
         </div>
     </div>
   )

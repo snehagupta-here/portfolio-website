@@ -47,7 +47,7 @@ export default function Herosection_skillname(props) {
   return (
     <>
       <button
-        className='flex justify-self-start self-start mt-4 items-center justify-center w-[319px] h-[50px] text-[15px] font-[600] bg-[#EAFCFF] rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF]'
+        className='flex justify-self-start self-start mt-4 items-center justify-center w-[90%] md:w-[319px] h-[50px] text-[15px] font-[600] bg-[#EAFCFF] rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF]'
         onClick={() => setShowModal(true)}
       >
         <FontAwesomeIcon icon={faPlus} className='mr-2' /> Add Experience

@@ -40,7 +40,7 @@ export default function AchievementForm(props) {
       >
         Add Achievement
       </button> */}
-      <img className="w-[22px] h-[22px] mr-16" onClick={()=>setShowModal(true)} src={pen1} />
+      <img className="w-[22px] h-[22px]" onClick={()=>setShowModal(true)} src={pen1} />
       {showModal && (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <div className="relative w-auto my-6 mx-auto max-w-3xl">

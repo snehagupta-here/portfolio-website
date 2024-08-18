@@ -44,14 +44,14 @@ function AdminTestimonial() {
   }
   return (
     <>
-    <div id="testimonials" className='flex flex-col'>
+    <div id="testimonials" className='flex flex-col w-[80%] xl:w-[70%]'>
        <h1 className='font-[700] mt-[70px] text-[25px] '>Testimonials</h1>
-    <div  className='h-auto py-8 w-[1200px] mt-[50px] shadows rounded-[20px] flex flex-col justify-evenly'>
+    <div  className='h-auto py-8 w-[99%] mt-[50px] shadows rounded-[20px] flex flex-col justify-evenly'>
          <h1 className='font-[600] text-[15px] ml-[55px] mb-4'>Few good words about me, from other...</h1>
-         <div className='flex justify-evenly'>
+         <div className='flex justify-evenly flex-col items-center 2xl:flex-row'>
             {testimonial.map((testimonial,index)=>{
                 return (
-                    <div className='h-auto w-[525px] mb-5 rounded-[10px] border-[2px] pl-6 pt-4 pb-5'>
+                    <div className='h-auto w-[90%] md:max-w-[525px] mb-5 rounded-[10px] border-[2px] pl-6 pt-4 pb-5'>
                     <div className='flex w-full justify-between'>
                         <h1 className='font-[500] text-[15px]'>{testimonial.serviceName}</h1>
                         <div className='mr-3'>
@@ -64,9 +64,9 @@ function AdminTestimonial() {
                         </div>
                     </div>
                     <h2 className='text-[13px] font-[400] text-[#565656] mb-5'>{testimonial.organizationName}</h2>
-                    <div className='flex'>
-                        <img src={`http://localhost:5000/${testimonial.photo}`} className='w-[200px] h-[200px] rounded-[20px]' />
-                        <h1 className='w-[280px] h-auto ml-4 text-[15px] leading-[24px]'>{testimonial.description}</h1>
+                    <div className='flex flex-col md:flex-row'>
+                        <img src={`http://localhost:5000/${testimonial.photo}`} className='w-[200px] h-[200px] mx-auto mb-8 md:mx-0 md:mb-0 rounded-[20px]' />
+                        <h1 className='w-auto mr-4 md:mr-0 h-auto ml-4 text-[15px] leading-[24px]'>{testimonial.description}</h1>
                     </div>
                     {/* <button className='flex font-[600] items-center justify-center w-[200px] h-[50px] bg-[#EAFCFF] rounded-[10px] border-[1px] border-[#1395DF] border-dashed text-[#1395DF]'> 
                   <label htmlFor='fileInput'><img src={upload} className='h-[20px] w-[20px] mr-2' /></label>  Update Picture</button> */}

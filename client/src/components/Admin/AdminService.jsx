@@ -63,24 +63,24 @@ function AdminService() {
   }
   return (
     <>
-    <div id="services" className='flex flex-col'>  
+    <div id="services" className='flex flex-col w-[80%] xl:w-[70%]'>  
       <h1 className='font-[700] mt-[70px] text-[25px] '>Services</h1>
-      <div className='shadows rounded-[20px] mt-[50px] w-[1200px] h-auto py-8  flex flex-col justify-evenly items-center' >
-        <div className='flex flex-col '>
-          <div className='w-full justify-between flex'>
-
+      <div className='shadows rounded-[20px] mt-[50px] w-[99%] h-auto py-8 px-8 sm:px-16  flex flex-col justify-evenly items-center' >
+        <div className='flex flex-col w-[100%]'>
+          <div className='w-full justify-between flex w-[100%]'>
+ 
         <h1 className='leading-[24px] font-[600] text-[15px] mb-3'>Description</h1>
         {/* <img src={pen1} className='w-[22px] h-[22px] ' /> */}
         <Services_description description={description} setDescription={setDescription} />
           </div>
-        <div className='w-[1100px] h-[126px] rounded-[10px] border-[#ACACAC] border-[1px] font-[400] text-[15px] p-4'>{description}</div>
+        <div className='w-[99%] min-h-[100px] h-auto rounded-[10px] border-[#ACACAC] border-[1px] font-[400] text-[15px] p-4'>{description}</div>
         </div> 
         {/* description */}
-      <div className='flex flex-col justify-evenly'>
+      <div className='flex flex-col justify-evenly w-[100%] mt-8'>
         <h1 className='leading-[24px] font-[600] text-[15px] mb-3 mt-8'>Services Provided</h1>
          {service.map((service,index)=>{
              return(
-                    <div className='flex flex-col w-[1100px] h-auto mb-6 border-[1px] border-[#ACACAC] rounded-[10px] p-5'>
+                    <div className='flex flex-col w-[99%] h-auto mb-6 border-[1px] border-[#ACACAC] rounded-[10px] p-5'>
                     <div className='flex w-full'><h1 className='font-[500] text-[15px] w-1/5 mb-3'>{service.serviceName}</h1>
                     <div className='flex justify-end w-4/5'>
                     {/* <img src={pen1} className='w-[22px] h-[22px] inline  mr-2 text-[black] ' /> */}
@@ -88,8 +88,8 @@ function AdminService() {
                     <img src={xmark1} className='w-[22px] h-[22px] inline  mr-2 text-[black]' onClick={() => {handleDelete(service._id)}} />
                     </div>
                        </div>
-                    <div className='flex'>
-                        <p className='text-[15px] font-[400] w-[820px] leading-[24px] mr-2'>{service.description}</p>
+                    <div className='flex flex-col-reverse md:flex-row md:justify-between'>
+                        <p className='text-[15px] font-[400] mt-8 md:mt-0 w-auto leading-[24px] mr-2'>{service.description}</p>
                       {service.photo && <img src={`http://localhost:5000/${service.photo}`} className='w-[230px] h-[150px] mt-4 rounded-[20px]' />}  
                     </div>
                 </div>

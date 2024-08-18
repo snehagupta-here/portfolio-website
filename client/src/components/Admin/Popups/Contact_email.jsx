@@ -40,7 +40,7 @@ const [contact,setContact] = useState(props.contact);
       >
         Contact Us
       </button> */}
-      <img src={pen} className="w-[22px] h-[22px] mr-2" onClick={()=>{setShowModal(true)}} />
+      <img src={pen} className="w-[20px] h-[20px] sm:w-[22px] sm:h-[22px] mr-2" onClick={()=>{setShowModal(true)}} />
       {showModal && (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <div className="relative w-auto my-6 mx-auto max-w-3xl">
